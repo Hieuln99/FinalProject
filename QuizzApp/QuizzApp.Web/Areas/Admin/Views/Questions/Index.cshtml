@@ -1,0 +1,75 @@
+﻿@model IEnumerable<QuizzApp.Data.Entities.Question>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Question</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"></li>
+        </ol>
+        <p>
+            <a type="button" class="btn btn-success" asp-action="Create" asp-controller="Options">Create New Question</a>
+        </p>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                List questions
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>
+                                Question Name
+                            </th>
+                            <th>
+                                Is Multiple
+                            </th>
+                            <th>Course Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Question Name
+                            </th>
+                            <th>
+                                Is Multiple
+                            </th>
+                            <th>Course ID</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.QuestionName</td>
+                                <td>@item.IsMultiple</td>
+                                <td>
+                                    @if (item.Course != null)
+                                    {
+                                        @item.Course.CourseName
+                                    }
+                                    else
+                                    {
+                                        @item.CourseId
+                                    }
+                                </td>
+                                <td>
+                                    <a type="button" class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    <a type="button" class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <a type="button" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

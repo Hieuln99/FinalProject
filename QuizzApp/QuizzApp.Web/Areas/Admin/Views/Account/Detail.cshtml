@@ -1,0 +1,63 @@
+﻿@using Models.Account
+@model UserViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Account Details</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"></li>
+        </ol>
+      
+            <div class="col-md-4">
+                <dl class="row">
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.Location)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        @Html.DisplayFor(model => model.Location)
+                    </dd>
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.Image)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        @if (Model.Image.Any())
+                        {
+                           <img src="@Url.Action("RetriveImg","Account",new {id = Model.Id})" style="width:130px ; height:150px ; border-radius:50%"/>
+                        }
+                        else
+                        {
+                            <img class="rounded-circle mt-5" src="~/assets//alex4.jpg" alt="100x100" width=250 height=250>
+                        }
+                    </dd>
+
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+       
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dd>
+                </dl>
+            </div>
+            <br />
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+    </div> 
+</main>

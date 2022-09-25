@@ -1,0 +1,15 @@
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\bin\Debug\net5.0\QuizzApp.Data.deps.json
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\bin\Debug\net5.0\QuizzApp.Data.runtimeconfig.json
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\bin\Debug\net5.0\QuizzApp.Data.runtimeconfig.dev.json
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\bin\Debug\net5.0\QuizzApp.Data.dll
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\bin\Debug\net5.0\QuizzApp.Data.pdb
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.csproj.AssemblyReference.cache
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.AssemblyInfoInputs.cache
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.AssemblyInfo.cs
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.csproj.CoreCompileInputs.cache
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.dll
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\refint\QuizzApp.Data.dll
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.pdb
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\QuizzApp.Data.genruntimeconfig.cache
+C:\ASM\version_final\version_final\coursemanagementsystem\QuizzApp\QuizzApp.Data\obj\Debug\net5.0\ref\QuizzApp.Data.dll

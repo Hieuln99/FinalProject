@@ -1,0 +1,87 @@
+﻿@model IEnumerable<QuizzApp.VModels.Courses.CourseVModel>
+
+@{
+    ViewData["Title"] = "Find";
+     Layout = "~/Areas/UserArea/Views/Shared/_Layout.cshtml";
+    var pageIndex = @ViewBag.PageIndex;
+    var pageNumber = @ViewBag.PageNumber;
+    var search = @ViewBag.StringSearch;
+}
+
+<table class="table">
+    <tbody>
+        <div class="col-12 mb-5">
+            <div class="title text-center pt-5">
+                <h1 class="display-2 text-primary">QuizHut</h1>
+                <div id="about" class="intro bg-light">
+                    <div class="blog-posts p-2">
+
+
+
+                        <div class="container">
+                            <div class="row">
+
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-md-4 mb-4">
+                                        <div class="component">
+                                            <div class="card">
+                                                <div class="card-header text-danger" style="font-size: xx-large">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </div>
+                                                <div class="card-body pt-0">
+                                                    <h4 class="card-title">@item.CourseName</h4>
+                                                    <p class="card-text">@item.CreatedTime.ToString("dd - MMM - yyyy")</p>
+                                                </div>
+                                                <div class="card-footer pb-3 mt-3">
+                                                    <a class="btn btn-outline-danger read"
+                                                   asp-area="UserArea"
+                                                   asp-controller="Questions"
+                                                   asp-action="Find"
+                                                   asp-route-id="@item.Id">
+                                                        Enter
+                                                    </a>
+                                                      <a class="btn btn-outline-danger read"
+                                                   asp-area="UserArea"
+                                                   asp-controller="Questions"
+                                                   asp-action="Resume"
+                                                   asp-route-id="@item.Id">
+                                                        Resume
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <nav aria-label="...">
+                                        <ul class="pagination">
+
+                                            @for (var i = 1; i <= pageNumber; i++)
+                                            {
+                                                if (i == pageIndex)
+                                                {
+                                                    <li class="page-item active">
+                                                        <a class="page-link">@i<span class="sr-only">(current)</span></a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" asp-area="UserArea" asp-controller="Courses" asp-action="Find" asp-route-stringSearch="@search" asp-route-pageIndex=@i >@i</a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </tbody>
+</table>
+

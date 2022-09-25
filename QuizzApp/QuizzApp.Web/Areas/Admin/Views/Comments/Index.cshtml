@@ -1,0 +1,63 @@
+﻿@using QuizzApp.Data.Entities
+@model IEnumerable<Comment>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Comment</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"></li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                List Comment
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                           
+                            <th>Email</th>
+                            <th>Comment Header</th>
+                            <th>Comment Text</th>
+                            <th>Comment Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            
+                            <th>Email</th>
+                            <th>Comment Header</th>
+                            <th>Comment Text</th>
+                            <th>Comment Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td>@item.Email</td>
+                                <td>@item.CommentHeader</td>
+                                <td>@item.CommentText</td>
+                                <td>@item.CommentTime.ToString("dd/MM/yyyy")</td>
+                                <td>                   
+                                    <a type="button" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+

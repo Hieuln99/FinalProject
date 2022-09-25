@@ -1,0 +1,105 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>@ViewData["Title"] - QuizzApp.Web</title>
+    
+    <environment names="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/img/favicon.ico" rel="icon" type="image/png">
+
+        <link rel="stylesheet" href="~/css/lazy.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/demo.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" asp-append-version="true"/>
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/img/favicon.ico" rel="icon" type="image/png">
+
+        <link rel="stylesheet" href="~/css/lazy.css" asp-append-version="true">
+        <link rel="stylesheet" href="~/css/demo.css" asp-append-version="true">
+        <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" asp-append-version="true"/>
+    </environment>
+</head>
+<body class="index">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-action="" asp-controller="">QuizHut</a>
+
+                <button class="navbar-toggler collapsed"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNavDropdown-7"
+                        aria-controls="navbarNavDropdown-7"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Home</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Quizz</a>
+                        </li>
+                    </ul>
+
+
+
+                    <ul class="navbar-nav flex-grow-1" style="display: flex; justify-content: flex-end;">
+                        <li class="nav-item"><partial name="_LoginPartial" /></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+       @* <partial name="_CookieConsentPartial" />*@
+    </div>
+    <main role="main" id="page-container">
+        <div id="content-wrap">
+            @this.RenderBody()
+        </div>
+    </main>
+    <partial name="~/Views/Shared/_FooterPartial.cshtml" />
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    <script>
+    $(document).ready(function(){
+        $('#pause').click(function(){
+            $.ajax({
+                url:'../../Questions/Pause',
+                method:'post',
+                data: $('#test').serialize(),
+                success: function(res){
+                    alert("Success.")
+                },
+                error: function(res){
+                    alert('failure!!!');
+                    console.log(res)
+                }
+            })
+        })
+    })
+    </script>
+
+    @this.RenderSection("Scripts", required: false)
+
+</body>
+</html>

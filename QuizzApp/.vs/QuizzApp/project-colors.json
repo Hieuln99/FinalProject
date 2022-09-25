@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3c521547-394c-4f66-80e1-78d4d634a261": {
+      "ProjectGuid": "3c521547-394c-4f66-80e1-78d4d634a261",
+      "DisplayName": "QuizzApp.Repository",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "4330a8ed-f21b-438e-9334-3c68c5e2ca79": {
+      "ProjectGuid": "4330a8ed-f21b-438e-9334-3c68c5e2ca79",
+      "DisplayName": "QuizzApp.Web",
+      "ColorIndex": 1
+    },
+    "ec74c21c-5ab0-4880-92f8-486c00a9b2df": {
+      "ProjectGuid": "ec74c21c-5ab0-4880-92f8-486c00a9b2df",
+      "DisplayName": "QuizzApp.Data",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

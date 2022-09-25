@@ -1,0 +1,76 @@
+﻿@model IEnumerable<QuizzApp.VModels.Questions.QuestionVModel>
+
+@{
+    ViewData["Title"] = "Find";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<body>
+    <div class="flex-grow-1">
+        <partial name="_BublesAndCirclesPrtial" />
+    </div>
+ 
+    <div class="col-12 offset-md-2 col-md-8 my-3 row">
+        <form method="post"  asp-controller="Questions" asp-area="UserArea" class="col-11 ml-4 mb-5" id="test">
+            <div id="details" class="component pt-2">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <i class="fa fa-exclamation-circle"></i>
+                    <strong>Warning!</strong>
+                    You have only one attempt to take this quiz!
+                    When you start, be aware to not leave the page by mistake, you will not be able to return again!
+                    Good luck!
+                </div>
+                <div class="card mb-3 mt-3">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="card-body pt-1">
+                            <h4 class="card-title"> Question @i: @Html.DisplayFor(modelItem => item.QuestionName)</h4>
+                            <input type="hidden" />
+                            <p class="card-text border-top pt-2" style="display: block;">
+                                <span class="text-primary mr-1">
+                                    @if (item.IsMultiple == false)
+                                    {
+                                        @foreach (var r in item.Options)
+                                        {
+                                            <td>
+                                                <input type="radio" id="@r.Id" name="@item.Id" value="@r.Id" />
+                                                <label for="@r.Id">@r.OptionName</label>
+                                            </td>
+                                            <br />
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @foreach (var r in item.Options)
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@r.Id" name="@item.Id" value="@r.Id" />
+                                                <label for="@r.Id">@r.OptionName</label>
+                                            </td>
+                                            <br />
+
+                                        }
+                                    }
+                                </span>
+                            </p>
+                        </div>
+                        i++;
+                    }
+                     <br />
+                    <div style="text-align:center">
+                        <button asp-action="Check" class="btn btn-success" type="submit" id="submitResult" >submit</button>
+                        <button class="btn btn-warning" type="button" id="pause">pause</button>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+

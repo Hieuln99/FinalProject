@@ -1,0 +1,40 @@
+﻿@model QuizzApp.Data.Entities.Question
+
+@{
+    ViewData["Title"] = "Details";
+ 
+}
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card text-black">
+          <p style="text-align:center">Detail</p>
+          
+          <div class="card-body">
+            
+            <div>
+              <div class="d-flex justify-content-between">
+                <span>Question</span><span>@Model.QuestionName</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Allow multiple choice</span><span>@Model.IsMultiple</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Course</span><span>@Model.Course.CourseName</span>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+      <div class="mb-3" style="text-align:center;margin-top:10px">
+            <a asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-primary" style="width:150px">Edit</a>
+            <a asp-action="Index" type="button" class="btn btn-secondary" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+  </div>
+</section>

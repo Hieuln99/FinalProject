@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "_TakeQuizPartial";
+    var stringSearch = "";
+}
+
+<form class="col-12 col-md-4" method="get" asp-area="UserArea" asp-controller="Courses"  asp-action="Find">
+    <div class="component">
+        <div class="card">
+            <div class="card-header text-warning" style="font-size: xx-large">
+                <i class="fas fa-folder-open"></i>
+            </div>
+            <div class="card-body pt-0">
+                <h4 class="card-title">Take Quiz</h4>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Course ..." asp-for="@stringSearch">
+                </div>
+                <span asp-validation-for="@stringSearch" class="text-danger"></span>
+            </div>
+            <div class="card-footer pb-3">
+                <button class="btn btn-outline-primary">Enter</button>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />         
+}
+

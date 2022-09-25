@@ -1,0 +1,115 @@
+﻿@model QuizzApp.Data.Entities.Question
+@*
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="QuestionName" class="control-label"></label>
+                <input asp-for="QuestionName" class="form-control" />
+                <span asp-validation-for="QuestionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label">Course</label>
+                <select asp-for="CourseId" class ="form-control" asp-items="ViewBag.CourseId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@
+
+
+@if (Model != null)
+{
+    @*@if (!Model.PasswordIsValid)
+    {*@
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <i class="fa fa-exclamation-circle"></i>
+            <strong>On no!</strong> There is already quiz with password. Try again !
+        </div>
+    @*}*@
+}
+<partial name="_BublesAndCirclesPrtial" />
+
+<div class="container-fluid">
+    <div class="col-12 offset-md-2 col-md-8 row">
+        <form id="form" method="post" asp-action="DetailsInput" asp-controller="Quizzes" asp-area="Administration" class="col-12">
+            <div class="component">
+                <div class="card mb-3 mt-3">
+                    <div class="card-header text-warning" style="font-size: xx-large">
+                        <i class="fas fa-folder-plus"></i>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Quiz Details</h4>
+                        <p class="card-text">
+                            <span class="text-primary mr-1">∗</span>
+                            You can always edit details later.
+                        </p>
+                    </div>
+                    <div class="card-footer pb-5">
+                        <div><label >Name</label></div>
+                        <div class="input-group">
+                            <input type="text"  class="form-control" placeholder="name">
+                        </div>
+                        <span class="text-danger"></span>
+                        <div class="mt-4"><label >Password</label></div>
+
+                        <div class="input-group">
+                            <input type="text"  class="form-control" placeholder="password">
+                        </div>
+                        <span  class="text-danger"></span>
+                        <p class="card-text text-primary">
+                            <span class=" mr-1">∗</span>
+                            In order to be accessible you should set password to your quiz.
+                        </p>
+                        <div class="mt-4"><label >Description</label></div>
+                        <textarea class="form-control"  placeholder="description">
+                        </textarea>
+                        <div class="mt-4"><label >Set Timer</label></div>
+                        <div class="input-group">
+                            <input type="number"  min="0" step="1" class="form-control" placeholder="minutes">
+                        </div>
+                        <p class="card-text text-primary ">
+                            <span class="mr-1">∗</span>
+                            If you don't want timer leave the field blank.
+                        </p>
+                        <div class="row mx-4 text-white">
+                            <button id="addQuiz" type="submit" class="btn btn-primary col-md-5 mt-5">Add Details</button>
+                            <div class="col-1 mr-4"></div>
+                            <a href="/Administration/Quizzes/AllQuizzesCreatedByTeacher" class="btn btn-primary col-md-5 mt-5">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script src="~/js/tinymcSetup.js" asp-append-version="true"></script>
+}

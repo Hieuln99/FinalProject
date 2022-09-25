@@ -1,0 +1,32 @@
+﻿@using QuizzApp.Data.Entities
+@model Course
+<form method="post" asp-action="Edit" style="width:90%; margin: 0 auto;" enctype="multipart/form-data">
+    <div class="border p-3 mt-4">
+        <div class="row pb-6">
+            <h2 class="text-primary">Edit course</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label asp-for="CourseName" class="control-label"></label>
+            <input asp-for="CourseName" class="form-control" />
+            <span asp-validation-for="CourseName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+{
+	@{
+    <partial name="_ValidationScriptsPartial" />
+	}
+}

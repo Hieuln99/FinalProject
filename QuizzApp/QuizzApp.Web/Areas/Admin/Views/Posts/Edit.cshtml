@@ -1,0 +1,101 @@
+﻿@using QuizzApp.VModels.Posts
+@model UpdatePostVM
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form method="post" asp-action="Edit" style="width:90%; margin: 0 auto;" enctype="multipart/form-data">
+    <div class="border p-3 mt-4">
+        <div class="row pb-6">
+            <h2 class="text-primary">Create Post</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Post.Id" />
+        <div class="mb-3">
+            <label asp-for="Post.Title" class="control-label"></label>
+            <input asp-for="Post.Title" class="form-control" />
+            <span asp-validation-for="Post.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Post.Description" class="control-label"></label>
+            <input asp-for="Post.Description" class="form-control" />
+            <span asp-validation-for="Post.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Post.Content" class="control-label"></label>
+            <textarea asp-for="Post.Content" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="Post.Content" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Post.Published"></label>
+            <select asp-for="Post.Published" asp-items="@ViewBag.PublishedList" class="form-control"></select>
+            <span asp-validation-for="Post.Published" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Post.PostedOn" class="control-label"></label>
+            <input asp-for="Post.PostedOn" class="form-control" />
+            <span asp-validation-for="Post.PostedOn" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Post.Modified" class="control-label"></label>
+            <input asp-for="Post.Modified" class="form-control" />
+            <span asp-validation-for="Post.Modified" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Post.ViewCount" class="control-label"></label>
+            <input asp-for="Post.ViewCount" class="form-control" min=0 />
+            <span asp-validation-for="Post.ViewCount" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Post.RateCount" class="control-label"></label>
+            <input asp-for="Post.RateCount" class="form-control" min=0 />
+            <span asp-validation-for="Post.RateCount" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Post.TotalRate" class="control-label"></label>
+            <input asp-for="Post.TotalRate" class="form-control" min=0 />
+            <span asp-validation-for="Post.TotalRate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="Index" type="button" class="btn btn-secondary" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </div>
+</form>
+
+
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload an Image!',
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
+
+
+
