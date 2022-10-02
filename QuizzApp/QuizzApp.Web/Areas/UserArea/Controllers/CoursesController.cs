@@ -8,6 +8,7 @@ using QuizzApp.VModels.Courses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace QuizzApp.Web.Areas.UserArea.Controllers
@@ -82,6 +83,7 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
             if (ModelState.IsValid)
             {
                 course.Id = Guid.NewGuid();
+                course.UserId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 _context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ADE79hLjE4LRiQ0m0UqDjv7Nv59soULMs0rnEiFTFNpNZkqQeUmWeXATIy2zczbS6FiVNuvQnKaAT42KrHYLkg==",
+  "dgSpecHash": "ih5qb/xmpL//OOZpx1srlrbqO0ya8YKaeLFX3UgS4/4sVwfrwLvIbmYQGQTPJ49Nh7zDg/N5hfVQheo57FLpAQ==",
   "success": true,
-  "projectFilePath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Web\\QuizzApp.Web.csproj",
+  "projectFilePath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Web\\QuizzApp.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hieut\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

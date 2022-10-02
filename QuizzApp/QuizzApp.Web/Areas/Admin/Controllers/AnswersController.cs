@@ -65,17 +65,17 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AnswerText,UserName,QuestionId")] TestQuestionAnswer answer)
+        public async Task<IActionResult> Create([Bind("Id,AnswerText,UserName,QuestionId")] TestQuestionAnswer answerTest)
         {
             if (ModelState.IsValid)
             {
-                answer.Id = Guid.NewGuid();
-                _context.Add(answer);
+                answerTest.Id = Guid.NewGuid();
+                _context.Add(answerTest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "QuestionName", answer.QuestionId);
-            return View(answer);
+            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "QuestionName", answerTest.QuestionId);
+            return View(answerTest);
         }
 
         // GET: Answers/Answers/Edit/5
@@ -100,9 +100,9 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,AnswerText,UserName,QuestionId")] TestQuestionAnswer answer)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,AnswerText,UserName,QuestionId")] TestQuestionAnswer answerTest)
         {
-            if (id != answer.Id)
+            if (id != answerTest.Id)
             {
                 return NotFound();
             }
@@ -111,12 +111,12 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(answer);
+                    _context.Update(answerTest);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AnswerExists(answer.Id))
+                    if (!AnswerExists(answerTest.Id))
                     {
                         return NotFound();
                     }
@@ -127,8 +127,8 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "QuestionName", answer.QuestionId);
-            return View(answer);
+            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "QuestionName", answerTest.QuestionId);
+            return View(answerTest);
         }
 
         // GET: Answers/Answers/Delete/5

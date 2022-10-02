@@ -64,10 +64,18 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
                 Text = o.CourseName,
                 Value = o.Id.ToString()
             });
-            ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
+            //ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
             return View();
         }
-
+        public IActionResult CreateNew(Guid id)
+        {
+            ViewData["course"] = _context.Courses.Where(o => o.Id == id).Select(o => new SelectListItem
+            {
+                Text = o.CourseName,
+                Value = o.Id.ToString()
+            });
+            return View(nameof(Create));
+        }
         // POST: Admin/Options/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "m3r+gjumTZAicjv+tGXVpMRTX+7u5QLQbg2VfEVKoNhGSmEXWYxhq1LZWromZQFdHdU1lKTrKh1wLWjkGcCavA==",
+  "dgSpecHash": "mN+QTOusLcubI8SibCFEQOkaWApYMbJ92rgWcQVjVoE0mAWpl6QfWdoFoYWjYse79cyE8NrURjv+cOxK2CEA7w==",
   "success": true,
-  "projectFilePath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj",
+  "projectFilePath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.17\\microsoft.aspnetcore.cryptography.internal.5.0.17.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.17\\microsoft.aspnetcore.cryptography.keyderivation.5.0.17.nupkg.sha512",

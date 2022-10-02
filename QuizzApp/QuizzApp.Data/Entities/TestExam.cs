@@ -9,6 +9,7 @@ namespace QuizzApp.Data.Entities
         public string Name { get; set; }
         public bool Status { get; set; }
         public Guid? CourseId { get; set; }
+        public virtual Course Course { get; set; }
         public Guid UserId { get; set; }
         public virtual IList<TestQuestion> TestQuestions { get; set; }
         public DateTime TakeOn { get; set; }

@@ -174,7 +174,7 @@ namespace QuizzApp.Data.Migrations
                     b.Property<DateTime>("CommentTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 9, 18, 16, 42, 48, 42, DateTimeKind.Local).AddTicks(1369));
+                        .HasDefaultValue(new DateTime(2022, 10, 2, 15, 8, 19, 930, DateTimeKind.Local).AddTicks(3351));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -204,7 +204,10 @@ namespace QuizzApp.Data.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 9, 18, 16, 42, 48, 45, DateTimeKind.Local).AddTicks(6077));
+                        .HasDefaultValue(new DateTime(2022, 10, 2, 15, 8, 19, 933, DateTimeKind.Local).AddTicks(7407));
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -258,7 +261,7 @@ namespace QuizzApp.Data.Migrations
                     b.Property<DateTime?>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 9, 18, 16, 42, 48, 46, DateTimeKind.Local).AddTicks(7498));
+                        .HasDefaultValue(new DateTime(2022, 10, 2, 15, 8, 19, 934, DateTimeKind.Local).AddTicks(9439));
 
                     b.Property<bool?>("Published")
                         .HasColumnType("bit");
@@ -624,9 +627,12 @@ namespace QuizzApp.Data.Migrations
 
             modelBuilder.Entity("QuizzApp.Data.Entities.TestExam", b =>
                 {
-                    b.HasOne("QuizzApp.Data.Entities.Course", null)
+                    b.HasOne("QuizzApp.Data.Entities.Course", "Course")
                         .WithMany("Tests")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("QuizzApp.Data.Entities.TestQuestion", b =>
@@ -659,7 +665,7 @@ namespace QuizzApp.Data.Migrations
                     b.HasOne("QuizzApp.Data.Entities.TestQuestion", "TestQuestion")
                         .WithMany("Answers")
                         .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Answer");
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj": {}
+    "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj": {}
   },
   "projects": {
-    "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {
+    "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
+        "projectUniqueName": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
         "projectName": "QuizzApp.Data",
-        "projectPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
+        "projectPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
         "packagesPath": "C:\\Users\\hieut\\.nuget\\packages\\",
-        "outputPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\obj\\",
+        "outputPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hieut\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,14 +82,14 @@
         }
       }
     },
-    "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj": {
+    "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj",
+        "projectUniqueName": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj",
         "projectName": "QuizzApp.Repository",
-        "projectPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj",
+        "projectPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Repository\\QuizzApp.Repository.csproj",
         "packagesPath": "C:\\Users\\hieut\\.nuget\\packages\\",
-        "outputPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Repository\\obj\\",
+        "outputPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hieut\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -106,8 +106,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {
-                "projectPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj"
+              "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {
+                "projectPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj"
               }
             }
           }

@@ -15,7 +15,7 @@ namespace QuizzApp.Data.Configuration
                    .WithMany(t => t.Answers)
                    .HasForeignKey(t => t.TestId)
                    .IsRequired(false)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

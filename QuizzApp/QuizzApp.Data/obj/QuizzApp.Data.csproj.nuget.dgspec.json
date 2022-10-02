@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {}
+    "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {}
   },
   "projects": {
-    "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {
+    "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
+        "projectUniqueName": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
         "projectName": "QuizzApp.Data",
-        "projectPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
+        "projectPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\QuizzApp.Data.csproj",
         "packagesPath": "C:\\Users\\hieut\\.nuget\\packages\\",
-        "outputPath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\QuizzApp.Data\\obj\\",
+        "outputPath": "C:\\ASM\\FinalProject\\QuizzApp\\QuizzApp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hieut\\AppData\\Roaming\\NuGet\\NuGet.Config",

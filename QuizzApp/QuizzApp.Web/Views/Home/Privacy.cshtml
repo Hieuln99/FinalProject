@@ -1,5 +1,9 @@
-﻿@{
-    this.ViewData["Title"] = "Home Page";
+﻿@using QuizzApp.Web
+@using QuizzApp.Web.Models
+@using QuizzApp.Data.Entities
+@model IEnumerable<Course>
+@{
+    this.ViewData["Title"] = "About  Page";
 }
 
 <div class="page-hero bg-white text-primary" id="banner">
@@ -15,6 +19,45 @@
         </div>
     </div>
 </div>
+@*------------------------------------------------------------------------------------------------*@
+
+@if (Model !=   null)
+{
+    <div class="container">
+        <div class="row">
+
+            @foreach (var item in Model) {
+            <div class="col-md-4 mb-4">
+                <div class="component">
+                    <div class="card">
+                        <div class="card-header text-primary" style="font-size: xx-large">
+                                <i class="fas fa-folder-open"></i>
+                        </div>
+                        <div class="card-body pt-0">
+                            <h4 class="card-title">@item.CourseName</h4>
+                            <i id="id" hidden="hidden">@item.Id</i>
+                        </div>
+                        <div class="card-footer pb-3 mt-3">
+                            <a type="button" class="btn btn-outline-primary read" 
+                            asp-controller="" 
+                            asp-action="ListQuestions" 
+                            asp-route-id="@item.Id">Questions</a>
+                                                    
+                            <a type="button"
+                            id = "delete"
+                            class="btn btn-outline-primary" 
+                            onclick="deleteConfirm(this)">Delete</a>                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+}
+
+
+@*------------------------------------------------------------------------------------------------*@
 <div id="about" class="intro bg-light">
     <div class="container text-center">
         <h2>About</h2>
@@ -129,5 +172,30 @@
     </div>
 </div>
 
-
+@section Scripts {
+<script>
+  function deleteConfirm(obj){
+     var choice = confirm('Are you sure!!!');
+     var id1 = document.getElementById('id').innerHTML;
+     if(choice == true){
+         $.ajax({
+                url:'../../Home/DeleteCourse',
+                method:'GET',
+                data: { courseId: id1},
+                success: function(res){
+                    alert("Success.")
+                    location.reload();
+                },
+                error: function(res){
+                    alert('failure!!!');
+                    console.log(res)
+                }
+            })
+     }
+     else{
+         location.reload();
+     }
+  }
+</script>
+}
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FKzlBVwddVf+OBfqcWr6aKPE+QWrjokKYeRURLNUv480hFHC6PLiof/ccFDI2+WOXELh0sIJjVGVfQON8zouzQ==",
+  "dgSpecHash": "kdewTKUOzp5IASxtVp7/gjkZVBmE+QQZIMb4XY41wC8JRu/rxUjeuCvSqImfwa222RjJVL3js1pbnfOBMVV5Gg==",
   "success": true,
-  "projectFilePath": "C:\\ASM\\FinalProject\\version_final\\coursemanagementsystem\\QuizzApp\\Models\\QuizzApp.VModels.csproj",
+  "projectFilePath": "C:\\ASM\\FinalProject\\QuizzApp\\Models\\QuizzApp.VModels.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

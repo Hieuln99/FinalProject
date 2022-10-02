@@ -74,7 +74,8 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
                 newTest.Name = User.Identity.Name;
                 string UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 newTest.UserId = new Guid(UserId);
-                newTest.TakeOn = DateTime.Now;
+                var time = DateTime.Now.ToString().Remove(16);
+                newTest.TakeOn = Convert.ToDateTime(time);
                 newTest.CourseId = questions.FirstOrDefault().CourseId;
                 _context.TestExams.Add(newTest); 
                 _context.SaveChanges();
@@ -115,16 +116,22 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
         public IActionResult Resume(Guid id)
         {
             var newest = (from test in _context.TestExams
+                          where test.CourseId == id
                           orderby test.TakeOn descending
                           select test).FirstOrDefault();
+
+
             var questions = (from ques in _context.Questions
                              join questest in _context.TestQuestions
                              on ques.Id equals questest.QuestionId
                              join test in _context.TestExams
                              on questest.TestExamId equals test.Id
                              where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
-                             && test.CourseId == id && test.TakeOn == newest.TakeOn && test.Status == false
+                             && test.CourseId == id 
+                             && test.TakeOn == newest.TakeOn 
+                             && test.Status == false
                              select ques).Include(q => q.Options).ToList();
+
             var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(questions);
             TempData["NumberQuestions"] = Questions.Count;
 
