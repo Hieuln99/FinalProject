@@ -2,6 +2,16 @@
 @model IEnumerable<User>
 
 <main>
+    
+  @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    else if(TempData["error"] != null){
+        ViewBag.Message = TempData["error"];
+    }
+    @Html.Partial("_message")
+
     <div class="container-fluid px-4">
         <h1 class="mt-4">Account</h1>
         <ol class="breadcrumb mb-4">
@@ -46,7 +56,6 @@
                                 <td>@item.Email</td>
                                 <td>@item.PhoneNumber</td>
                                 <td>
-                                    <a type="button" class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                                     <a type="button" class="btn btn-outline-info" asp-action="Detail" asp-route-id="@item.Id">Details</a>
                                     <a type="button" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                 </td>

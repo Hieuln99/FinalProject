@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using QuizzApp.Data.DbContext;
+using QuizzApp.Data.Entities;
 using QuizzApp.Repository.Infrastructures;
 using QuizzApp.Web.Models;
 using System;
@@ -15,11 +18,13 @@ namespace QuizzApp.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private AppDbContext _context;
+        private IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context, IMapper mapper)
         {
             _logger = logger;
             _context = context;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -57,12 +62,43 @@ namespace QuizzApp.Web.Controllers
             return RedirectToAction(nameof(Privacy));
         }
 
+
         [Authorize(Roles = "User , Admin")]
         public IActionResult ListQuestions(Guid id)
         {
-            var questions = _context.Questions.Where(c => c.CourseId == id).ToList();
+            var questions = _context.Questions.Where(c => c.CourseId == id).Include(c => c.Course).ToList();
             TempData["id"] = id;
             return View(questions);
+        }
+
+        [Authorize(Roles = "User , Admin")]
+        public IActionResult EditCourrse(Guid id)
+        {
+            var Course = _context.Courses.FirstOrDefault(c => c.Id == id);
+            if(Course != null)
+            {
+                return View(Course);
+            }
+            TempData["error"] = "Cannot find this course";
+            return RedirectToAction(nameof(Privacy));
+        }
+
+        [Authorize(Roles = "User , Admin")]
+        [HttpPost]
+        public IActionResult EditCourrse(Course course)
+        {
+            var Course = _context.Courses.FirstOrDefault(c => c.Id == course.Id);
+            if (Course != null)
+            {
+                Course.CourseName = course.CourseName;
+                _context.Courses.Update(Course);
+                _context.SaveChanges();
+
+                TempData["message"] = "Update success!!";
+                return RedirectToAction(nameof(Privacy));
+            }
+            TempData["error"] = "Cannot update this course";
+            return RedirectToAction(nameof(Privacy));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

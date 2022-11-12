@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using QuizzApp.Data.DbContext;
 using QuizzApp.Data.Entities;
 using QuizzApp.Repository.Infrastructures;
-using QuizzApp.VModels.Answers;
 using QuizzApp.VModels.Questions;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ using System.Security.Claims;
 
 namespace QuizzApp.Web.Areas.UserArea.Controllers
 {
-   
+
     public class QuestionsController : UserController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,87 +28,114 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
  
         public IActionResult Find(Guid id)
         {
-            List<int> List = new List<int>();
-            List<Question> newList = new List<Question>();
-            var questions = _unitOfWork.QuestionRepository.GetAll()
-                .Include(q => q.Options)
-                .Where(q => q.Course.Id == id)
-                .ToList();
-
-            var newQues = questions.ToArray();
-            Random random = new Random();
-
-            if (questions != null)
+            var userId = new Guid(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var pay = _context.UserCoursePayments.FirstOrDefault(x => x.UserId == userId  && x.CourseId == id);
+            var UrCourse = _context.Courses.FirstOrDefault(c => c.Id == id);
+            var Usrequest = _context.ListApproves.FirstOrDefault(x => x.UserId == userId && x.CourseId == id);
+            if (pay == null && UrCourse.UserId != userId )
             {
-                var quest = random.Next(0, questions.Count);
-                List.Add(quest);
-                var Length = questions.Count;
-
-                do
+                if(Usrequest == null)
                 {
-                    quest = random.Next(0, questions.Count);
-                    if (!List.Contains(quest))
-                    {
-                        List.Add(quest);
-                    }
-                } while (List.Count < 10 ? List.Count < Length : List.Count < 10
-                );
-
-
-            }
-
-            for (int i = 0; i < List.Count; i++)
-            {
-                if (newQues.Length != 0)
-                {
-                    newList.Add(newQues[List[i]]);
-                }
-            }
-
-
-            if (questions.Count != 0)
-            {
-                TestExam newTest = new TestExam();
-                newTest.Id = Guid.NewGuid();
-                newTest.Name = User.Identity.Name;
-                string UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                newTest.UserId = new Guid(UserId);
-                var time = DateTime.Now.ToString().Remove(16);
-                newTest.TakeOn = Convert.ToDateTime(time);
-                newTest.CourseId = questions.FirstOrDefault().CourseId;
-                _context.TestExams.Add(newTest); 
-                _context.SaveChanges();
-                foreach (var question in newList)
-                {
-                    TestQuestion questionTest = new TestQuestion();
-                    questionTest.TestId = Guid.NewGuid();
-                    questionTest.QuestionId = question.Id;
-                    questionTest.TestExamId = newTest.Id;
-                    _context.TestQuestions.Add(questionTest);
+                    var request = new ListApproves();
+                    request.UserId = userId;
+                    request.CourseId = id;
+                    request.BuyTime = DateTime.Now;
+                    request.Unique = Guid.NewGuid();
+                    _context.ListApproves.Add(request);
                     _context.SaveChanges();
                 }
-                var newest = (from test in _context.TestExams
-                             orderby test.TakeOn descending
-                             select test).FirstOrDefault();
-
-                var listQues = (from ques in _context.Questions
-                                join questest in _context.TestQuestions
-                                on ques.Id equals questest.QuestionId
-                                join test in _context.TestExams
-                                on questest.TestExamId equals test.Id
-                                where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
-                                && test.CourseId == id && test.TakeOn == newest.TakeOn
-                                select ques).ToList();
-
-
-                var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(listQues);
-                TempData["NumberQuestions"] = Questions.Count;
-                return View(Questions);
+                TempData["message"] = "Your request are created, please waiting...";
+                return RedirectToAction("Index", "Courses");
             }
+            else
+            {
 
-            var newQuestion = _mapper.Map<IList<Question>, IList<QuestionVModel>>(newList);
-            TempData["NumberQuestions"] = newQuestion.Count;
-            return View(newQuestion);
+                List<int> List = new List<int>();
+                List<Question> newList = new List<Question>();
+                var questions = _unitOfWork.QuestionRepository.GetAll()
+                    .Include(q => q.Options)
+                    .Where(q => q.Course.Id == id)
+                    .ToList();
+
+                var newQues = questions.ToArray();
+                Random random = new Random();
+
+                if (questions != null)
+                {
+                    var quest = random.Next(0, questions.Count);
+                    List.Add(quest);
+                    var Length = questions.Count;
+
+                    do
+                    {
+                        quest = random.Next(0, questions.Count);
+                        if (!List.Contains(quest))
+                        {
+                            List.Add(quest);
+                        }
+                    } while (List.Count < 10 ? List.Count < Length : List.Count < 10
+                    );
+
+
+                }
+
+                for (int i = 0; i < List.Count; i++)
+                {
+                    if (newQues.Length != 0)
+                    {
+                        newList.Add(newQues[List[i]]);
+                    }
+                }
+
+
+                if (questions.Count != 0)
+                {
+                    TestExam newTest = new TestExam();
+                    newTest.Id = Guid.NewGuid();
+                    newTest.Name = User.Identity.Name;
+                    string UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    newTest.UserId = new Guid(UserId);
+                    var time = DateTime.Now.ToString().Remove(16);
+                    if (time[15] == ':')
+                    {
+                        time = DateTime.Now.ToString().Remove(15);
+                    }
+                    newTest.TakeOn = Convert.ToDateTime(time);
+                    newTest.CourseId = questions.FirstOrDefault().CourseId;
+                    _context.TestExams.Add(newTest);
+                    _context.SaveChanges();
+                    foreach (var question in newList)
+                    {
+                        TestQuestion questionTest = new TestQuestion();
+                        questionTest.TestId = Guid.NewGuid();
+                        questionTest.QuestionId = question.Id;
+                        questionTest.TestExamId = newTest.Id;
+                        _context.TestQuestions.Add(questionTest);
+                        _context.SaveChanges();
+                    }
+                    var newest = (from test in _context.TestExams
+                                  orderby test.TakeOn descending
+                                  select test).FirstOrDefault();
+
+                    var listQues = (from ques in _context.Questions
+                                    join questest in _context.TestQuestions
+                                    on ques.Id equals questest.QuestionId
+                                    join test in _context.TestExams
+                                    on questest.TestExamId equals test.Id
+                                    where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
+                                    && test.CourseId == id && test.TakeOn == newest.TakeOn
+                                    select ques).ToList();
+
+
+                    var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(listQues);
+                    TempData["NumberQuestions"] = Questions.Count;
+                    return View(Questions);
+                }
+
+                var newQuestion = _mapper.Map<IList<Question>, IList<QuestionVModel>>(newList);
+                TempData["NumberQuestions"] = newQuestion.Count;
+                return View(newQuestion);
+            }
         }
 
         [HttpGet]
@@ -120,112 +146,123 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
                           orderby test.TakeOn descending
                           select test).FirstOrDefault();
 
+            if(newest != null)
+            {
+                var questions = (from ques in _context.Questions
+                                 join questest in _context.TestQuestions
+                                 on ques.Id equals questest.QuestionId
+                                 join test in _context.TestExams
+                                 on questest.TestExamId equals test.Id
+                                 where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
+                                 && test.CourseId == id
+                                 && test.TakeOn == newest.TakeOn
+                                 && test.Status == false
+                                 select ques).Include(q => q.Options).ToList();
 
-            var questions = (from ques in _context.Questions
-                             join questest in _context.TestQuestions
-                             on ques.Id equals questest.QuestionId
-                             join test in _context.TestExams
-                             on questest.TestExamId equals test.Id
-                             where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
-                             && test.CourseId == id 
-                             && test.TakeOn == newest.TakeOn 
-                             && test.Status == false
-                             select ques).Include(q => q.Options).ToList();
+                var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(questions);
+                TempData["NumberQuestions"] = Questions.Count;
 
-            var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(questions);
-            TempData["NumberQuestions"] = Questions.Count;
+                ViewBag.options = (from op in _context.TestQuestionAnswers
+                                   join tq in _context.TestQuestions
+                                   on op.TestId equals tq.TestId
+                                   join te in _context.TestExams
+                                   on tq.TestExamId equals te.Id
+                                   where
+                                   te.Id == newest.Id  // wrong
+                                   && te.CourseId == id
+                                   && new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == te.UserId
+                                   && te.Status == false
+                                   select op.AnswerId).ToList();
 
-            ViewBag.options = (from op in _context.TestQuestionAnswers
-                              join tq in _context.TestQuestions
-                              on op.TestId equals tq.TestId
-                              join te in _context.TestExams
-                              on tq.TestExamId equals te.Id
-                              where 
-                              te.Id == newest.Id  // wrong
-                              && te.CourseId == id
-                              && new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == te.UserId
-                              && te.Status == false
-                              select op.AnswerId).ToList();
-            
 
-            return View(Questions);
+                return View(Questions);
+            }
+            return RedirectToAction("Index","Courses");
         }
 
         public IActionResult Pause(IFormCollection form)
         {
-            var newest = (from test in _context.TestExams
-                          orderby test.TakeOn descending
-                          select test).FirstOrDefault();
-
-            var listTest = (from testquest in _context.TestQuestions
-                            join test in _context.TestExams
-                            on testquest.TestExamId equals test.Id
-                            where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
-                            && test.TakeOn == newest.TakeOn
-                            select testquest).FirstOrDefault();
-
-            var newList = form.ToList();
-            newList.RemoveAt(form.Count - 1);
-           
-            var answer = new TestQuestionAnswer();
-            foreach (var item in newList)
+           if(form.Count != 1)
             {
+                var newest = (from test in _context.TestExams
+                              orderby test.TakeOn descending
+                              select test).FirstOrDefault();
 
-                foreach (var option in item.Value)
+                var listTest = (from testquest in _context.TestQuestions
+                                join test in _context.TestExams
+                                on testquest.TestExamId equals test.Id
+                                where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
+                                && test.TakeOn == newest.TakeOn
+                                select testquest).FirstOrDefault();
+
+                var newList = form.ToList();
+                newList.RemoveAt(form.Count - 1);
+
+                var answer = new TestQuestionAnswer();
+                foreach (var item in newList)
                 {
-                    answer.Id = Guid.NewGuid();
-                    answer.QuestionId = new Guid(item.Key);
-                    answer.Summited = DateTime.Now;
-                    answer.TestId = listTest.TestId;
-                    answer.AnswerId = _context.Options.FirstOrDefault(o => o.Id == new Guid(option)).Id;
-                    _unitOfWork.TestAnswers.Add(answer);
-                    _unitOfWork.SaveChanges();
+
+                    foreach (var option in item.Value)
+                    {
+                        answer.Id = Guid.NewGuid();
+                        answer.QuestionId = new Guid(item.Key);
+                        answer.Summited = DateTime.Now;
+                        answer.TestId = listTest.TestId;
+                        answer.AnswerId = _context.Options.FirstOrDefault(o => o.Id == new Guid(option)).Id;
+                        _unitOfWork.TestAnswers.Add(answer);
+                        _unitOfWork.SaveChanges();
+                    }
                 }
+                return Ok();
             }
-            return Ok();
+            return NotFound();
             //return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(new { data= "true"}));
         }
 
         public IActionResult Check(IFormCollection form)
         {
-            var list = form.ToList();
-            int mark = 0;
-            list.RemoveAt(form.Count - 1);
-
-            foreach (var question in list)
+            if (form.Count() != 1)
             {
-                if (_unitOfWork.QuestionRepository.FindByIdString(question.Key).IsMultiple)
+                var list = form.ToList();
+                int mark = 0;
+                list.RemoveAt(form.Count - 1);
+
+                foreach (var question in list)
                 {
-                    var listResultTrue = _unitOfWork.OptionRepository.GetAll().Where(o => o.QuestionId.ToString() == question.Key && o.Status == true).ToList();
-                    var listOptionOfQuestion = question.Value.ToList();
-                    if (listOptionOfQuestion.Count == listResultTrue.Count)
+                    if (_unitOfWork.QuestionRepository.FindByIdString(question.Key).IsMultiple)
                     {
-                        if (CheckMultiple(listOptionOfQuestion))
+                        var listResultTrue = _unitOfWork.OptionRepository.GetAll().Where(o => o.QuestionId.ToString() == question.Key && o.Status == true).ToList();
+                        var listOptionOfQuestion = question.Value.ToList();
+                        if (listOptionOfQuestion.Count == listResultTrue.Count)
+                        {
+                            if (CheckMultiple(listOptionOfQuestion))
+                            {
+                                mark++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var Result = _unitOfWork.OptionRepository.GetAll().Where(o => o.QuestionId.ToString() == question.Key && o.Status == true).FirstOrDefault();
+                        if (Result.Id.ToString() == question.Value)
                         {
                             mark++;
                         }
                     }
                 }
-                else
-                {
-                    var Result = _unitOfWork.OptionRepository.GetAll().Where(o => o.QuestionId.ToString() == question.Key && o.Status == true).FirstOrDefault();
-                    if (Result.Id.ToString() == question.Value)
-                    {
-                        mark++;
-                    }
-                }
+
+                //AddAnswer(list);
+
+                var test = _context.TestExams.OrderByDescending(t => t.TakeOn).FirstOrDefault(t => t.UserId == new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+                test.Status = true;
+                _context.SaveChanges();
+
+                var questions = TempData["NumberQuestions"].ToString();
+                var number = Convert.ToInt32(questions);
+                var grade = Math.Round((float)(mark * 10) / number, 2);
+                return View("Submit", grade);
             }
-
-            //AddAnswer(list);
-
-            var test = _context.TestExams.OrderByDescending(t => t.TakeOn).FirstOrDefault(t =>t.UserId == new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            test.Status = true;
-            _context.SaveChanges();
-
-            var questions = TempData["NumberQuestions"].ToString();
-            var number = Convert.ToInt32(questions);
-            var grade = Math.Round((float)(mark * 10) / number, 2);
-            return View("Submit",grade);
+            return RedirectToAction("Index", "Courses");
         }
 
         public bool CheckMultiple(List<string> listQuestion)

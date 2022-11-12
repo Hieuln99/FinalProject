@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>@ViewData["Title"] - QuizzApp.Web</title>
-
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/img/favicon.ico" rel="icon" type="image/png">
@@ -23,6 +22,7 @@
         <link rel="stylesheet" href="~/css/demo.css" asp-append-version="true">
         <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" asp-append-version="true"/>
     </environment> 
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 </head>
 <body class="index">
@@ -66,7 +66,7 @@
         </nav>
     </header>
     <div class="container">
-       @* <partial name="_CookieConsentPartial" />*@
+
     </div>
     <main role="main" id="page-container">
         <div id="content-wrap">
@@ -85,67 +85,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-
-    <script>
-      $(document).ready(function() {
-        $('#form').validate({
-        rules: {
-            QuestionName: {
-                required: true,
-                minlength: 3,
-                maxlength: 200
-            },
-            options1: {
-                required: true,
-                minlength: 1,
-                maxlength: 100
-            },
-            options2: {
-                required: true,
-                minlength: 1,
-                maxlength: 100
-            },
-            options3: {
-                required: true,
-                minlength: 1,
-                maxlength: 100
-            },
-            options4: {
-                required: true,
-                minlength: 1,
-                maxlength: 100
-            }
-        },
-        messages: {
-            QuestionName: {
-                required: "input first name",
-                minlength: "more characters",
-                maxlength: "input less than 200 characters"
-            },
-            options1: {
-                required: "input the option",
-                minlength: "more characters",
-                maxlength: "input less than 100 characters"
-            },
-            options2: {
-                required: "input the option",
-                minlength: "more characters",
-                maxlength: "input less than 100 characters"
-            },
-            options3: {
-                required: "input the option",
-                minlength: "more characters",
-                maxlength: "input less than 100 characters"
-            },
-            options4: {
-                required: "input the option",
-                minlength: "more characters",
-                maxlength: "input less than 100 characters"
-            }
-         }
-        });
-    });
-    </script>
 
     @this.RenderSection("Scripts", required: false)
 </body>

@@ -6,22 +6,22 @@
     var id = TempData["id"];
 }
 
-<h1>ListQuestions</h1>
+    <h1>ListQuestions</h1>
+<br />
 
-<p>
-    <a asp-area="Admin" asp-controller="Options" asp-action="CreateNew" asp-route-id="@id">Create New</a>
-</p>
+<div style="margin-left:3%">
+      <a asp-action="CreateNew" asp-controller="Options" asp-area="Admin" asp-route-id="@id" class="btn btn-outline-primary" type="button">Create</a>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.QuestionName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsMultiple)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Number)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Course)
@@ -31,7 +31,9 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+            
         <tr>
+            <td><i id="id2" hidden="hidden">@item.Id</i></td>
             <td>
                 @Html.DisplayFor(modelItem => item.QuestionName)
             </td>
@@ -39,17 +41,15 @@
                 @Html.DisplayFor(modelItem => item.IsMultiple)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Course.CourseName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-area="Admin" asp-controller="Options" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="EditQuestions" asp-route-id="@item.Id">Edit</a> |
+               
+                <a onclick="deleteConfirm()">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 
 namespace QuizzApp.Web.Areas.Admin.Controllers
 {
@@ -43,19 +44,24 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         {
             try
             {
-                var img = ConvertToBytes(user.ImagePath);
+                
                 var UpdateUser = _context.Users.FirstOrDefault(x => x.Id == user.Id);
                 if (UpdateUser != null)
                 {
-                    var path = user.ImagePath.FileName.Split('.');
-                    var realPath = path[path.Length - 1];
-
                     UpdateUser.Email = user.Email;
                     UpdateUser.Location = user.Location;
                     UpdateUser.PhoneNumber = user.PhoneNumber;
-                    UpdateUser.Image = img;
-                    UpdateUser.Extend = "image/" + realPath;
                     
+                    if (user.ImagePath is not null)
+                    {
+                        var img = ConvertToBytes(user.ImagePath);
+                        var path = user.ImagePath.FileName.Split('.');
+                        var realPath = path[path.Length - 1];
+                        user.Extend = "image/" + realPath; 
+                        UpdateUser.Image = img;
+                        UpdateUser.Extend = "image/" + realPath;
+                    }
+
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
                 }
@@ -72,6 +78,24 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Id==id);
             var MapAcc = _mapper.Map<UserViewModel>(user);
             return View(MapAcc);
+        }
+
+        
+        public IActionResult Delete(Guid id)
+        {
+            if(id != new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Id == id);
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+                TempData["message"] = "Delete success!!!";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["error"] = "Can not delete admin account!!!";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         [HttpGet]

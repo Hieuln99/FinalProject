@@ -174,7 +174,7 @@ namespace QuizzApp.Data.Migrations
                     b.Property<DateTime>("CommentTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 10, 2, 15, 8, 19, 930, DateTimeKind.Local).AddTicks(3351));
+                        .HasDefaultValue(new DateTime(2022, 10, 26, 19, 29, 1, 977, DateTimeKind.Local).AddTicks(113));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -204,7 +204,7 @@ namespace QuizzApp.Data.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 10, 2, 15, 8, 19, 933, DateTimeKind.Local).AddTicks(7407));
+                        .HasDefaultValue(new DateTime(2022, 10, 26, 19, 29, 1, 980, DateTimeKind.Local).AddTicks(3545));
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -212,6 +212,27 @@ namespace QuizzApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("QuizzApp.Data.Entities.ListApproves", b =>
+                {
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("BuyTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Unique")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CourseId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ListApproves", "dbo");
                 });
 
             modelBuilder.Entity("QuizzApp.Data.Entities.Option", b =>
@@ -261,7 +282,7 @@ namespace QuizzApp.Data.Migrations
                     b.Property<DateTime?>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 10, 2, 15, 8, 19, 934, DateTimeKind.Local).AddTicks(9439));
+                        .HasDefaultValue(new DateTime(2022, 10, 26, 19, 29, 1, 982, DateTimeKind.Local).AddTicks(3444));
 
                     b.Property<bool?>("Published")
                         .HasColumnType("bit");
@@ -501,6 +522,24 @@ namespace QuizzApp.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("QuizzApp.Data.Entities.UserCoursePayment", b =>
+                {
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("BuyTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CourseId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCoursePayment", "dbo");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("QuizzApp.Data.Entities.Role", null)
@@ -589,6 +628,25 @@ namespace QuizzApp.Data.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("QuizzApp.Data.Entities.ListApproves", b =>
+                {
+                    b.HasOne("QuizzApp.Data.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuizzApp.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("QuizzApp.Data.Entities.Option", b =>
                 {
                     b.HasOne("QuizzApp.Data.Entities.Question", "Question")
@@ -672,6 +730,25 @@ namespace QuizzApp.Data.Migrations
                     b.Navigation("Question");
 
                     b.Navigation("TestQuestion");
+                });
+
+            modelBuilder.Entity("QuizzApp.Data.Entities.UserCoursePayment", b =>
+                {
+                    b.HasOne("QuizzApp.Data.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuizzApp.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("QuizzApp.Data.Entities.Category", b =>

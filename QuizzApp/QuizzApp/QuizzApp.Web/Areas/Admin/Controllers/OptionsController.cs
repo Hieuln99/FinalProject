@@ -9,6 +9,7 @@ using QuizzApp.Data.Entities;
 using QuizzApp.Repository.Infrastructures;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace QuizzApp.Web.Areas.Admin.Controllers
@@ -59,13 +60,27 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (User.IsInRole("Admin"))
             {
-                Text = o.CourseName,
-                Value = o.Id.ToString()
-            });
-            //ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
-            return View();
+                ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
+                {
+                    Text = o.CourseName,
+                    Value = o.Id.ToString()
+                });
+                //ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
+                return View();
+            }
+            else
+            {
+                ViewData["course"] = _context.Courses.Where(c => c.UserId == new Guid(userId)).Select(o => new SelectListItem
+                {
+                    Text = o.CourseName,
+                    Value = o.Id.ToString()
+                });
+                //ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
+                return View();
+            }
         }
         public IActionResult CreateNew(Guid id)
         {
@@ -126,7 +141,7 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index), "Questions");
+                return RedirectToAction("Listquestions" , "Home", new { area = "" , id = option .CourseId});
             }
 
             ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem

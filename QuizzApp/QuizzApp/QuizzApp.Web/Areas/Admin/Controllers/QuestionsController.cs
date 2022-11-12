@@ -155,7 +155,6 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
 
         // POST: Questions/Questions/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(Guid id)
         {
             var question = _unitOfWork.QuestionRepository.GetById(id);
@@ -165,36 +164,16 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         }
 
 
-        //public IActionResult Find(Guid id)
-        //{
-        //    List<int> List = new List<int>();
-        //    List<Question> newList = new List<Question>();
-        //    var questions = _unitOfWork.QuestionRepository.GetAll().Include(q => q.Options).Where(q => q.Course.Id == id).ToList();
-        //    var newQues = questions.ToArray();
-        //    Random random = new Random();
-
-        //    var quest = random.Next(0, questions.Count());
-        //    List.Add(quest);
-
-        //    do
-        //    {
-        //        quest = random.Next(0, questions.Count());
-        //        if (!List.Contains(quest))
-        //        {
-        //            List.Add(quest);
-        //        }
-        //    } while (List.Count() < questions.Count());
+        public IActionResult DelAjax(Guid questionId)
+        {
+            var question = _unitOfWork.QuestionRepository.GetById(questionId);
+            _unitOfWork.QuestionRepository.Remove(question);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
 
 
-        //    foreach (var a in List)
-        //    {
-        //        newList.Add(newQues[a]);
-        //    }
 
-        //    var newQuestion = _mapper.Map<IList<Question>, IList<QuestionVModel>>(newList);
-        //    TempData["NumberQuestions"] = newQuestion.Count;
-        //    return View(newQuestion);
-        //}
 
         public IActionResult Check(IFormCollection form)
         {

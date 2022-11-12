@@ -67,8 +67,12 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
             return View(course);
         }
 
-        // GET: User/Courses/Create
         public IActionResult Create()
+        {
+            return View();
+        }
+
+        public IActionResult CreateCourse()
         {
             return View();
         }

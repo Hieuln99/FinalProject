@@ -40,7 +40,7 @@ namespace QuizzApp.Web
             services.ConfigureApplicationCookie(config =>
             {
                 //config.Cookie.HttpOnly = true;
-                config.ExpireTimeSpan = TimeSpan.FromSeconds(560);
+                config.ExpireTimeSpan = TimeSpan.FromSeconds(460);
             });
 
 
@@ -71,7 +71,7 @@ namespace QuizzApp.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -83,7 +83,6 @@ namespace QuizzApp.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

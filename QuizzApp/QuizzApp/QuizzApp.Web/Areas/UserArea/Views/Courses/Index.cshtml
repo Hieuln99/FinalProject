@@ -8,6 +8,12 @@
     var pageIndex = ViewBag.PageIndex;
 }
 
+  @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    @Html.Partial("_message")
+
 <table class="table">
 <tbody>
   <div class="col-12 mb-5">
@@ -38,7 +44,7 @@
                                                        asp-action="Find"
                                                        asp-route-id="@item.Id"
                                                     >
-                                                    Enter
+                                                    Enroll
                                                     </a>
                                                     <a class="btn btn-outline-danger read"
                                                        asp-area="UserArea" 

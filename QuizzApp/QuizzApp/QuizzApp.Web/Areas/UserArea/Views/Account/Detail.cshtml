@@ -1,214 +1,74 @@
-﻿@model QuizzApp.Data.Entities.User
+﻿@using Models.Account
+@model UserViewModel
 
 @{
     ViewData["Title"] = "Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Detail</h1>
+<body >
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Extend)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Extend)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NormalizedUserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NormalizedUserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NormalizedEmail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NormalizedEmail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SecurityStamp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ConcurrencyStamp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ConcurrencyStamp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TwoFactorEnabled)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LockoutEnd)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LockoutEnd)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LockoutEnabled)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
-    </dl>
-</div>
-@*--------------------------------*@
+     @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    else if(TempData["error"] != null){
+        ViewBag.Message = TempData["error"];
+    }
+    @Html.Partial("_message")
 
-<h1> Responsive Material Design Form 
-  <small>Material Design delivers a cleaner and flatter user interface</small>
-</h1>
-<section class="contact-wrap">
-  <form action="" class="contact-form">
-    <div class="col-sm-6">
-      <div class="input-block">
-        <label for="">First Name</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="input-block">
-        <label for="">Last Name</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="input-block">
-        <label for="">Email</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="input-block">
-        <label for="">Message Subject</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="input-block textarea">
-        <label for="">Drop your message here</label>
-        <textarea rows="3" type="text" class="form-control"></textarea>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <button class="square-button">Send</button>
-    </div>
-  </form>
-</section>
-
-<!-- follow me template -->
-<h1> Responsive Material Design Form 
-  <small>Material Design delivers a cleaner and flatter user interface</small>
-</h1>
-<section class="contact-wrap">
-  <form action="" class="contact-form">
-    <div class="col-sm-6">
-      <div class="input-block">
-        <label for="">First Name</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="input-block">
-        <label for="">Last Name</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="input-block">
-        <label for="">Email</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="input-block">
-        <label for="">Message Subject</label>
-        <input type="text" class="form-control">
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="input-block textarea">
-        <label for="">Drop your message here</label>
-        <textarea rows="3" type="text" class="form-control"></textarea>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <button class="square-button">Send</button>
-    </div>
-  </form>
-</section>
-
-<!-- follow me template -->
-<div class="made-with-love">
-  Made with 
-  <i>♥</i> by 
-  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
-</div>
-
-@*---------------------------------------*@
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align:center">Account Details</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"></li>
+        </ol>
+      <form method="post" asp-action="Update" asp-controller="Account" enctype="multipart/form-data">
+            <div class="col-md-2" style="margin: auto; ">
+                <dl class="row">
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.Location)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        <input name="location" value="@Html.DisplayFor(model => model.Location)"/>
+                    </dd>
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.Image)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        @if (Model.Image.Any() && Model.Extend != null)
+                        {
+                           <img src="@Url.Action("RetriveImg","Account",new {id = Model.Id})" style="width:130px ; height:150px ; border-radius:50%"/>
+                        }
+                        else
+                        {
+                            <img class="rounded-circle mt-5" src="~/assets//alex4.jpg" alt="100x100" width=250 height=250>
+                        }
+                    </dd>
+                    <input asp-for ="ImagePath" type="file"/>
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        <input name="username" value ="@Html.DisplayFor(model => model.UserName)"/>
+                    </dd>
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        <input name="email" value="@Html.DisplayFor(model => model.Email)"/>
+                    </dd>
+       
+                    <dt class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </dt>
+                    <dd class = "col-sm-12">
+                        <input name="phonenumber" value="@Html.DisplayFor(model => model.PhoneNumber)"/>
+                    </dd>
+                </dl>
+                     <button type="submit" class ="btn-primary">Save</button>
+                     <button asp-action="Privacy" asp-controller="Home" asp-area ="default" class="btn-warning">Cancle</button>
+            </div>
+            </form>
+            <br />
+    </div> 
+</body>

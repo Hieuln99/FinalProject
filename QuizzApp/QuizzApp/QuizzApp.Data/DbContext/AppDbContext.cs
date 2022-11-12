@@ -23,6 +23,8 @@ namespace QuizzApp.Data.DbContext
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserCoursePayment> UserCoursePayments { get; set; }
+        public DbSet<ListApproves> ListApproves { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CategoryCourse> CategoryCourses { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -34,6 +36,7 @@ namespace QuizzApp.Data.DbContext
         public DbSet<TestQuestion> TestQuestions { get; set; }
         public override DbSet<Role> Roles { get; set; }
         public override DbSet<User> Users { get; set; }
+        
         //public DbSet<Result> Results { get; set; }
     }
 }

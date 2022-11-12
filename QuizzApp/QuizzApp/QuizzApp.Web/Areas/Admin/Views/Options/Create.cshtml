@@ -48,7 +48,7 @@
                         
                        <div class="card-footer pb-5">
                         <div class="mt-4"><label>Options</label></div>
-                         @for (var i = 0; i < 4; i++)
+                            @for (var i = 0; i < 4; i++)
                             {
                             <div class="form-group " style="margin-top:2rem" >
                             <input name="options[@i]"  placeholder="Enter option...." class="form-control"  
@@ -56,7 +56,7 @@
                             <span asp-validation-for="Options[i]" class="text-danger"></span>
                           
 
-                            <input asp-for="Status[i]" id="Status[@i]" name="Status[@i]" type="checkbox" 
+                            <input  type="checkbox" asp-for="Status[i]" id="Status[@i]" name="Status[@i]" 
                             class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
                             <label for="Status[@i]" class="control-label mt-1 ml-2" style="margin-left:5px">
                                 Correct Answers</label>

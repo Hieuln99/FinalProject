@@ -5,6 +5,14 @@
 @{
     this.ViewData["Title"] = "About  Page";
 }
+ @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    else if(TempData["error"] != null){
+        ViewBag.Message = TempData["error"];
+    }
+    @Html.Partial("_message")
 
 <div class="page-hero bg-white text-primary" id="banner">
     <partial name="_BublesAndCirclesPrtial" />
@@ -18,7 +26,13 @@
             </div>
         </div>
     </div>
+    
+        
+            <div class="d-grid col-7 mx-auto">
+              <a asp-action="CreateCourse" asp-controller="Courses" asp-area="UserArea" class="btn btn-success" type="button">Add Your Course</a>
+            </div>
 </div>
+
 @*------------------------------------------------------------------------------------------------*@
 
 @if (Model !=   null)
@@ -42,7 +56,12 @@
                             asp-controller="" 
                             asp-action="ListQuestions" 
                             asp-route-id="@item.Id">Questions</a>
-                                                    
+                              
+                            <a type="button" class="btn btn-outline-primary read" 
+                            asp-controller="" 
+                            asp-action="EditCourrse"  
+                            asp-route-id="@item.Id">Edit</a>
+
                             <a type="button"
                             id = "delete"
                             class="btn btn-outline-primary" 

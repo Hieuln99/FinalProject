@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QuizzApp.Data.DbContext;
 using QuizzApp.Data.Entities;
 using QuizzApp.Repository.Infrastructures;
@@ -65,30 +66,46 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpGet]
-        //public IActionResult Find(string stringSearch, int pageIndex = 1)
+        [HttpGet]
+        public IActionResult Request()
+        {
+            var Requests = _context.ListApproves.Include(u => u.Course).Include(u => u.User).ToList();
+            return View(Requests);
+        }
+         
 
-        //{
-        //    int pageSize = 6;
-        //    var newCourse = _unitOfWork.CourseRepository.GetAll()
-        //                                                .Where(c => c.CourseName
-        //                                                .Contains(stringSearch))
-        //                                                .ToList();
-        //    ViewBag.StringSearch = stringSearch;
-        //    ViewBag.PageSize = pageSize;
-        //    ViewBag.PageIndex = pageIndex;
-        //    ViewBag.PageNumber = newCourse.Count() / 6 + 1;
+        [HttpGet]
+        public IActionResult Approve(User approve)
+        {
+            var request = _context.ListApproves.FirstOrDefault(l => l.Unique == approve.Id);
+            if(request != null)
+            {
+                UserCoursePayment payment = new UserCoursePayment();
+                payment.UserId = request.UserId;
+                payment.CourseId = request.CourseId;
+                payment.BuyTime = DateTime.Now;
+                _context.UserCoursePayments.Add(payment);
+                _context.ListApproves.Remove(request);
+                _context.SaveChanges();
+            }
 
-        //    if (stringSearch == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var listDisplay = newCourse.Skip(pageSize * (pageIndex - 1))
-        //                               .Take(pageSize).ToList();
-        //    var listCourses = _mapper.Map<IList<Course>, IList<CourseVModel>>(listDisplay); 
+            TempData["message"] = "Approved!!!";
+            return RedirectToAction("Index");
+        }
 
-        //    return View(listCourses);
-        //}
+        [HttpGet]
+        public IActionResult Cancle(User approve)
+        {
+           
+            var request = _context.ListApproves.FirstOrDefault(a => a.Unique == approve.Id);
+            if (request != null)
+            {
+                _context.ListApproves.Remove(request);
+                _context.SaveChanges();
+                TempData["message"] = "Remove request success!!!";
+            }
+            return RedirectToAction(nameof(Request));
+        }
 
         public IActionResult Delete(Guid id)
         {
@@ -97,6 +114,8 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            var tests = _context.TestExams.Where(t => t.CourseId == null).ToList();
+            _context.TestExams.RemoveRange(tests);
             _unitOfWork.CourseRepository.Remove(course);
             _unitOfWork.SaveChanges();
             return RedirectToAction("Index");
