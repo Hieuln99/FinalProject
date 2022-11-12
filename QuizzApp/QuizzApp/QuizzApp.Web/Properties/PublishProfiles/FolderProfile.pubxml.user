@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\inetpub\wwwroot\QuizzApp</_PublishTargetUrl>
+    <History>True|2022-11-11T17:22:59.2623605Z;True|2022-11-12T00:03:15.0994125+07:00;True|2022-11-11T23:21:41.5033387+07:00;True|2022-11-11T22:36:37.3434333+07:00;True|2022-11-11T22:35:35.0020627+07:00;True|2022-11-11T22:30:09.1289511+07:00;True|2022-11-11T22:27:51.3520337+07:00;True|2022-11-11T22:11:21.9912195+07:00;True|2022-11-11T21:42:05.0804319+07:00;True|2022-11-11T21:36:40.4749716+07:00;True|2022-11-11T21:35:06.0769695+07:00;True|2022-11-11T21:28:28.0077262+07:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="QuizzAppDb">
+      <Value>Data Source=DESKTOP-1N6RSC5%3bInitial Catalog=QuizzAppDb%3bIntegrated Security=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="QuizzApp.Data.DbContext.AppDbContext">
+      <Value>Data Source=DESKTOP-1N6RSC5%3bInitial Catalog=QuizzAppDb%3bIntegrated Security=True</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

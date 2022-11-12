@@ -1,0 +1,13 @@
+﻿@if(ViewBag.Message != null && ViewBag.Message == TempData["message"])
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert" align="center">
+            @ViewBag.Message
+        </div>
+    }
+
+    @if(ViewBag.Message != null && ViewBag.Message == TempData["error"])
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" align="center">
+            @ViewBag.Message
+        </div>
+    }

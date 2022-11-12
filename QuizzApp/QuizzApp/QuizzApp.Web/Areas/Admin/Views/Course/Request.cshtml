@@ -1,0 +1,68 @@
+﻿@using QuizzApp.Data.Entities
+@model IEnumerable<ListApproves>
+
+<main>
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    else if(TempData["error"] != null){
+        ViewBag.Message = TempData["error"];
+    }
+    @Html.Partial("_message")
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Request</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"></li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                List Requests
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>
+                                User Name
+                            </th><th>
+                                Course
+                            </th>
+                            <th>Request time
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                               User Name
+                            </th><th>
+                               Course
+                            </th><th>
+                                Request time
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.User.UserName</td>
+                                <td>@item.Course.CourseName</td>
+                                <td>@item.BuyTime</td>
+                                <td>
+                                    <a type="button" class="btn btn-outline-warning" asp-action="Approve" asp-route-id="@item.Unique">Approve</a>
+                                    <a type="button" class="btn btn-outline-info"    asp-action="Cancle" asp-route-id="@item.Unique">Cancle</a>
+                                </td>  
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
