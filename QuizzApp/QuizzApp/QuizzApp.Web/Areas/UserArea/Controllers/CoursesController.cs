@@ -90,7 +90,7 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
                 course.UserId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 _context.Add(course);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("privacy","Home", new { area = "" });
             }
             return View(course);
         }

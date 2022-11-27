@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuizzApp.Data.DbContext;
 using QuizzApp.Data.Entities;
@@ -280,6 +281,37 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
 
         public IActionResult Submit()
         {
+            return View();
+        }
+
+
+        public IActionResult EditQuestions(Guid id)
+        {
+            var question = _context.Questions.Include(q => q.Course).FirstOrDefault(t => t.Id == id);
+            if(question != null)
+            {
+                //ViewData["course"] = _context.Courses.Where(c => c.Id == new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                //.Select(o => new SelectListItem
+                //{
+                //    Text = o.CourseName,
+                //    Value = o.Id.ToString()
+                //});
+                var options = _context.Options.Where(o => o.QuestionId == question.Id).ToList();
+                var questionMap = new QuestionEditVM();
+                questionMap.Options = options;
+                questionMap.Course = question.Course;
+                questionMap.Id = id;
+                questionMap.QuestionName = question.QuestionName;
+
+                return View(questionMap);
+            }
+            return RedirectToAction("ListQuestions","Home", new { area = "" });
+        }
+
+        [HttpPost]
+        public IActionResult EditQuestions(QuestionEditVM question)
+        {
+
             return View();
         }
 

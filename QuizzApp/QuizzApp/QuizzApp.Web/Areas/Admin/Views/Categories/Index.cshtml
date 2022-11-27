@@ -19,6 +19,7 @@
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>
                                 Category Name
                             </th>
@@ -27,6 +28,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th>
                                 Category Name
                             </th>
@@ -37,11 +39,14 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    <i id="id" hidden="hidden">@item.Id</i>
+                                </td>
                                 <td>@item.CategoryName</td>
                                 <td>
                                     <a type="button" class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                    <a type="button" class="btn btn-outline-info" asp-action="ListCourseOfCategory" asp-route-id="@item.Id">List Course</a>
-                                    <a type="button" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                   @* <a type="button" class="btn btn-outline-info" asp-action="ListCourseOfCategory" asp-route-id="@item.Id">List Course</a>*@
+                                    <a type="button" class="btn btn-outline-danger" onclick="deleteConfirmCourse()">Delete</a>
                                 </td>
                             </tr>
                         }
@@ -51,3 +56,29 @@
         </div>
     </div>
 </main>
+@section Scripts {
+<script>
+function deleteConfirmCourse() {
+    var choice = confirm('Are you sure!!!');
+    var id1 = document.getElementById('id').innerHTML;
+    if (choice == true) {
+        $.ajax({
+            url: 'https://quizizz.com:8181/Admin/Categories/Delete',
+            method: 'GET',
+            data: { questionId: id1 },
+            success: function (res) {
+                alert("Success.")
+                location.reload();
+            },
+            error: function (res) {
+                alert('failure!!!');
+                console.log(res)
+            }
+        })
+    }
+    else {
+        location.reload();
+    }
+}
+</script>
+}

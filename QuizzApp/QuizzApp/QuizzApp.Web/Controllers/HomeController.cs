@@ -90,12 +90,14 @@ namespace QuizzApp.Web.Controllers
             var Course = _context.Courses.FirstOrDefault(c => c.Id == course.Id);
             if (Course != null)
             {
-                Course.CourseName = course.CourseName;
-                _context.Courses.Update(Course);
-                _context.SaveChanges();
-
-                TempData["message"] = "Update success!!";
-                return RedirectToAction(nameof(Privacy));
+                if (ModelState.IsValid)
+                {
+                    Course.CourseName = course.CourseName;
+                    _context.Courses.Update(Course);
+                    _context.SaveChanges();
+                    TempData["message"] = "Update success!!";
+                    return RedirectToAction(nameof(Privacy));
+                }
             }
             TempData["error"] = "Cannot update this course";
             return RedirectToAction(nameof(Privacy));

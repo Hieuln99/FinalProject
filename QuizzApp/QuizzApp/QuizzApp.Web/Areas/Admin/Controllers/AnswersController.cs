@@ -28,10 +28,13 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         // GET: Answers/Answers
         public async Task<IActionResult> Index()
         {
-            var answers = _unitOfWork.AnswerRepository.GetAll()
-                .Include(a => a.Question).Include(a => a.Answer)
-                .OrderBy(q=>q.Question);
-            return View(await answers.ToListAsync());
+            var answers = _unitOfWork.AnswerRepository.GetAll().Include(a => a.Question).Include(a => a.Answer)
+              .OrderBy(q => q.Question);
+            if (answers is not null)
+            {
+                return View(await answers.ToListAsync());
+            }
+            return View();
         }
 
         // GET: Answers/Answers/Details/5

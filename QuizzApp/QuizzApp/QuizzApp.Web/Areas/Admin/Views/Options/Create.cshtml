@@ -28,17 +28,16 @@
                         <div class="input-group">
                             <select asp-for="CourseId"  class="form-control" 
                             asp-items="@ViewData["course"] as IEnumerable<SelectListItem>"></select>
+                        </div
                             <span asp-validation-for="CourseId" class="text-danger"></span>
-                        </div>
                         <span class="text-danger"></span>
 
                         <div class="mt-4"><label>Question</label></div>
                         <div class="input-group">
                            <input asp-for="QuestionName" 
                            onchange="Changed(this)" placeholder="Enter Question...." class="form-control"/>
-                           @*onclick="Changed(this)" *@
-                      
                         </div>
+                           <span asp-validation-for="QuestionName" class="text-danger"></span>
                         <p style="color: red" id="show_message"></p>
                         <span class="text-danger"></span>
                         <p class="card-text text-primary">
@@ -48,20 +47,56 @@
                         
                        <div class="card-footer pb-5">
                         <div class="mt-4"><label>Options</label></div>
-                            @for (var i = 0; i < 4; i++)
-                            {
+                            @*@for (var i = 0; i < 4; i++)
+                            {*@
                             <div class="form-group " style="margin-top:2rem" >
-                            <input name="options[@i]"  placeholder="Enter option...." class="form-control"  
+                            <input name="options[0]"  placeholder="Enter option...." class="form-control"  onchange="Changed(this)"
                             style="width:70%; float:left"/>
-                            <span asp-validation-for="Options[i]" class="text-danger"></span>
+                            <p style="color: red" id="show_message1"></p>
                           
-
-                            <input  type="checkbox" asp-for="Status[i]" id="Status[@i]" name="Status[@i]" 
+                             @*asp-for="Status[i]"*@
+                            <input  type="checkbox" id="Status[0]" name="Status[0]" asp-for="Status[0]"
                             class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
-                            <label for="Status[@i]" class="control-label mt-1 ml-2" style="margin-left:5px">
+                            <label for="Status[0]" class="control-label mt-1 ml-2" style="margin-left:5px">
                                 Correct Answers</label>
                             </div>
-                            }
+                            @*}*@
+
+                            <div class="form-group " style="margin-top:2rem" >
+                            <input name="options[1]"  placeholder="Enter option...." class="form-control"  onchange="Changed(this)"
+                            style="width:70%; float:left"/>
+                            <p style="color: red" id="show2"></p>
+                          
+                             @*asp-for="Status[i]"*@
+                            <input  type="checkbox" id="Status[1]" name="Status[1]" asp-for="Status[1]"
+                            class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
+                            <label for="Status[1]" class="control-label mt-1 ml-2" style="margin-left:5px">
+                                Correct Answers</label>
+                            </div>
+
+                            <div class="form-group " style="margin-top:2rem" >
+                            <input name="options[2]"  placeholder="Enter option...." class="form-control"  onchange="Changed(this)"
+                            style="width:70%; float:left"/>
+                            <p style="color: red" id="show3"></p>
+                          
+                             @*asp-for="Status[i]"*@
+                            <input  type="checkbox" id="Status[2]" name="Status[2]" asp-for="Status[2]"
+                            class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
+                            <label for="Status[2]" class="control-label mt-1 ml-2" style="margin-left:5px">
+                                Correct Answers</label>
+                            </div>
+
+                            <div class="form-group " style="margin-top:2rem" >
+                            <input name="options[3]"  placeholder="Enter option...." class="form-control"  onchange="Changed(this)"
+                            style="width:70%; float:left"/>
+                            <p style="color: red" id="show4"></p>
+                          
+                             @*asp-for="Status[i]"*@
+                            <input  type="checkbox" id="Status[3]" name="Status[3]" asp-for="Status[3]"
+                            class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
+                            <label for="Status[3]" class="control-label mt-1 ml-2" style="margin-left:5px">
+                                Correct Answers</label>
+                            </div>
                         <br />
 
                         <div class="row mx-4 text-white">
@@ -91,6 +126,54 @@
     }
     else if (value != ""){
         message.innerHTML = "";
+    }
+  }
+  </script>
+  <script>
+  function Changed1(obj){
+      let message1 = document.getElementById('show1');
+       var value = obj.value;
+      if(value == ""){
+        message1.innerHTML = "please input option!";
+    }
+    else if (value != ""){
+        message1.innerHTML = "";
+    }
+  }  
+  </script>
+  <script>
+  function Changed2(obj){
+      let message2 = document.getElementById('show2');
+       var value = obj.value;
+      if(value == ""){
+        message2.innerHTML = "please input option!";
+    }
+    else if (value != ""){
+        message2.innerHTML = "";
+    }
+  }
+  </script>
+  <script>
+  function Changed3(obj){
+      let message3 = document.getElementById('show3');
+       var value = obj.value;
+      if(value == ""){
+        message3.innerHTML = "please input option!";
+    }
+    else if (value != ""){
+        message3.innerHTML = "";
+    }
+  }
+  </script>
+  <script>
+  function Changed4(obj){
+      let message4 = document.getElementById('show4');
+       var value = obj.value;
+      if(value == ""){
+        message4.innerHTML = "please input option!";
+    }
+    else if (value != ""){
+        message4.innerHTML = "";
     }
   }
 </script>

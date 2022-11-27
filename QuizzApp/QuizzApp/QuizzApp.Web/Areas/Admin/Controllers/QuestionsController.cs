@@ -163,12 +163,15 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        [HttpGet, ActionName("DelAjax")]
         public IActionResult DelAjax(Guid questionId)
         {
             var question = _unitOfWork.QuestionRepository.GetById(questionId);
-            _unitOfWork.QuestionRepository.Remove(question);
-            _unitOfWork.SaveChanges();
+            if (question != null)
+            {
+                _unitOfWork.QuestionRepository.Remove(question);
+                _unitOfWork.SaveChanges();
+            }
             return RedirectToAction(nameof(Index));
         }
 

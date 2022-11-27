@@ -10,9 +10,10 @@ namespace Models.Options
         public List<string> Options { get; set; }
         [Required(ErrorMessage = "Input question please!")]
         public string QuestionName { get; set; }
-        [Required(ErrorMessage = "Please chose right answer!")]
+        [Required(ErrorMessage = "Please choose right answer!")]
         public List<bool> Status { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Please choose a course!")]
         public Guid CourseId { get; set; }
 
     }

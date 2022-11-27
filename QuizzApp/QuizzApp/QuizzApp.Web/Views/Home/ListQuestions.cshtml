@@ -6,7 +6,7 @@
     var id = TempData["id"];
 }
 
-    <h1>ListQuestions</h1>
+    <h1 style="padding-left: 5%">ListQuestions</h1>
 <br />
 
 <div style="margin-left:3%">
@@ -44,12 +44,10 @@
                 @Html.DisplayFor(modelItem => item.Course.CourseName)
             </td>
             <td>
-                <a asp-action="EditQuestions" asp-route-id="@item.Id">Edit</a> |
-               
+                <a asp-controller="Questions" asp-area="UserArea" asp-action="EditQuestions" asp-route-id="@item.Id">Edit</a> |
                 <a onclick="deleteConfirm()">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-

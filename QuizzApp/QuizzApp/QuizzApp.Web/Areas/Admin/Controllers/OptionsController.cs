@@ -98,50 +98,53 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateOptionVM option)
         {
-            if (ModelState.IsValid)
+            if (!option.CourseId.Equals(new Guid("00000000-0000-0000-0000-000000000000")) && option.Status.Contains(true))
             {
-                var tmpoption = new Option();
-                var tmQuestion = new Question();
-                tmQuestion.Id = Guid.NewGuid();
-                var questId = tmQuestion.Id;
-                tmQuestion.CourseId = option.CourseId;
-                tmQuestion.QuestionName = option.QuestionName;
-                var number = option.Status.Where(s => s is true).Count();
-                if (number <= 1)
+                if (ModelState.IsValid)
                 {
-                    tmQuestion.IsMultiple = false;
-                }
-                if(number > 1)
-                {
-                    tmQuestion.IsMultiple = true;
-                }
-                if (option.Options.Where(o => o is null).Count() == 4)
-                {
-                    ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
+                    var tmpoption = new Option();
+                    var tmQuestion = new Question();
+                    tmQuestion.Id = Guid.NewGuid();
+                    var questId = tmQuestion.Id;
+                    tmQuestion.CourseId = option.CourseId;
+                    tmQuestion.QuestionName = option.QuestionName;
+                    var number = option.Status.Where(s => s is true).Count();
+                    if (number <= 1)
                     {
-                        Text = o.CourseName,
-                        Value = o.Id.ToString()
-                    });
-                    ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
-                    return View(option);
-                }
-                _unitOfWork.QuestionRepository.Add(tmQuestion);
-                _unitOfWork.SaveChanges();
-
-                for (int i = 0; i < option.Options.Count; i++)
-                {
-                    if (option.Options[i] != null)
-                    {
-                        tmpoption.Id = Guid.NewGuid();
-                        tmpoption.Status = option.Status[i];
-                        tmpoption.OptionName = option.Options[i];
-                        tmpoption.QuestionId = questId;
-                        _unitOfWork.OptionRepository.Add(tmpoption);
-                        _unitOfWork.SaveChanges();
+                        tmQuestion.IsMultiple = false;
                     }
-                }
+                    if (number > 1)
+                    {
+                        tmQuestion.IsMultiple = true;
+                    }
+                    if (option.Options.Where(o => o is null).Count() == 4)
+                    {
+                        ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
+                        {
+                            Text = o.CourseName,
+                            Value = o.Id.ToString()
+                        });
+                        ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
+                        return View(option);
+                    }
+                    _unitOfWork.QuestionRepository.Add(tmQuestion);
+                    _unitOfWork.SaveChanges();
 
-                return RedirectToAction("Listquestions" , "Home", new { area = "" , id = option .CourseId});
+                    for (int i = 0; i < option.Options.Count; i++)
+                    {
+                        if (option.Options[i] != null)
+                        {
+                            tmpoption.Id = Guid.NewGuid();
+                            tmpoption.Status = option.Status[i];
+                            tmpoption.OptionName = option.Options[i];
+                            tmpoption.QuestionId = questId;
+                            _unitOfWork.OptionRepository.Add(tmpoption);
+                            _unitOfWork.SaveChanges();
+                        }
+                    }
+
+                    return RedirectToAction("Listquestions", "Home", new { area = "", id = option.CourseId });
+                }
             }
 
             ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
