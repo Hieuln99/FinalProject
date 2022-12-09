@@ -23,12 +23,6 @@ namespace QuizzApp.Data.Configuration
                    .HasForeignKey(o => o.QuestionId)
                    .IsRequired(false)
                    .OnDelete(DeleteBehavior.Cascade);
-
-            //builder.HasMany(q => q.Results)
-            //       .WithOne(r => r.Question)
-            //       .HasForeignKey(r => r.QuestionId)
-            //       .IsRequired(false)
-            //       .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

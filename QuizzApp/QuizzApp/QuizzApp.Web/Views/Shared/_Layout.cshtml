@@ -34,7 +34,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-action="" asp-controller="">QuizHut</a>
+                <a class="navbar-brand" asp-area="" asp-action="" asp-controller="">QuizzApp</a>
 
                 <button class="navbar-toggler collapsed"
                         type="button"
@@ -47,13 +47,14 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.Identity.IsAuthenticated) { 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Home</a>
-                        </li>
-                        
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>}
+                        @*
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Quizz</a>
-                        </li>
+                        </li>*@
                     </ul>
 
 

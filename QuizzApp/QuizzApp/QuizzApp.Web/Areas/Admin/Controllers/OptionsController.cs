@@ -8,6 +8,7 @@ using QuizzApp.Data.DbContext;
 using QuizzApp.Data.Entities;
 using QuizzApp.Repository.Infrastructures;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -98,6 +99,13 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateOptionVM option)
         {
+            var Status = new List<bool>(); 
+            Status.Add(option.Status1);
+            Status.Add(option.Status2);
+            Status.Add(option.Status3);
+            Status.Add(option.Status4);
+            option.Status= Status;
+            int mutiple = 0;
             if (!option.CourseId.Equals(new Guid("00000000-0000-0000-0000-000000000000")) && option.Status.Contains(true))
             {
                 if (ModelState.IsValid)
@@ -108,14 +116,32 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
                     var questId = tmQuestion.Id;
                     tmQuestion.CourseId = option.CourseId;
                     tmQuestion.QuestionName = option.QuestionName;
-                    var number = option.Status.Where(s => s is true).Count();
-                    if (number <= 1)
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if(option.Options[i] != null && option.Status[i] == true)
+                        {
+                            mutiple++;
+                        }
+                    }
+                    //var number = option.Status.Where(s => s is true).Count();
+                    if (mutiple == 1)
                     {
                         tmQuestion.IsMultiple = false;
                     }
-                    if (number > 1)
+                    if (mutiple > 1)
                     {
                         tmQuestion.IsMultiple = true;
+                    }
+                    if(mutiple == 0)
+                    {
+                        TempData["error"] = "Your question is not valid try input option with status suiltable!";
+                        ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
+                        {
+                            Text = o.CourseName,
+                            Value = o.Id.ToString()
+                        });
+                        ViewData["QuestionId"] = new SelectList(_unitOfWork.QuestionRepository.GetAll(), "Id", "QuestionName");
+                        return View(option);
                     }
                     if (option.Options.Where(o => o is null).Count() == 4)
                     {
@@ -142,11 +168,11 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
                             _unitOfWork.SaveChanges();
                         }
                     }
-
+                    TempData["message"] = "Your question created!";
                     return RedirectToAction("Listquestions", "Home", new { area = "", id = option.CourseId });
                 }
             }
-
+            TempData["error"] = "Your question is not valid try select at least one option is true!!";
             ViewData["course"] = _unitOfWork.CourseRepository.GetAll().Select(o => new SelectListItem
             {
                 Text = o.CourseName,

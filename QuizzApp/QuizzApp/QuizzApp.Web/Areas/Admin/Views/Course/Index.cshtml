@@ -63,7 +63,7 @@
                                 <td>@item.CreatedTime</td>
                                 <td>
                                     <a type="button" class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                    <a type="button" class="btn btn-outline-danger" onclick="deleteConfirmCourse()">Delete</a>
+                                    <a class="btn btn-outline-danger" id="@item.Id" onclick="deleteConfirmCourse(this)">Delete</a>
                                 </td>
                             </tr>
                         }
@@ -73,30 +73,3 @@
         </div>
     </div>
 </main>
-
-@section Scripts {
-<script>
-function deleteConfirmCourse() {
-    var choice = confirm('Are you sure!!!');
-    var id1 = document.getElementById('id').innerHTML;
-    if (choice == true) {
-        $.ajax({
-            url: 'https://quizizz.com:8181/Admin/Course/Delete',
-            method: 'GET',
-            data: { questionId: id1 },
-            success: function (res) {
-                alert("Success.")
-                location.reload();
-            },
-            error: function (res) {
-                alert('failure!!!');
-                console.log(res)
-            }
-        })
-    }
-    else {
-        location.reload();
-    }
-}
-</script>
-}

@@ -93,7 +93,7 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             }
             else
             {
-                TempData["error"] = "Can not delete admin account!!!";
+                TempData["error"] = "Can not delete current account!!!";
                 return RedirectToAction(nameof(Index));
             }
         }

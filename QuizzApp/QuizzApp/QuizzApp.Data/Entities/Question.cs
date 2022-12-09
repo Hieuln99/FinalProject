@@ -22,6 +22,5 @@ namespace QuizzApp.Data.Entities
         public virtual Course Course { get; set; }
         public virtual IList<TestQuestion> TestQuestions { get; set; }
         public virtual IList<Option> Options { get; set; }
-        //public virtual IList<Result> Results { get; set; }
     }
 }

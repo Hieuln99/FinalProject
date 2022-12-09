@@ -56,7 +56,7 @@
                                 <td>@item.BuyTime</td>
                                 <td>
                                     <a type="button" class="btn btn-outline-warning" asp-action="Approve" asp-route-id="@item.Unique">Approve</a>
-                                    <a type="button" class="btn btn-outline-info"    asp-action="Cancle" asp-route-id="@item.Unique">Cancle</a>
+                                    <a type="button" class="btn btn-outline-info"  onclick="return confirm('Are you sure you want to cancle this?')"  asp-action="Cancle" asp-route-id="@item.Unique">Cancle</a>
                                 </td>  
                             </tr>
                         }

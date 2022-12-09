@@ -114,27 +114,27 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
                         _context.TestQuestions.Add(questionTest);
                         _context.SaveChanges();
                     }
-                    var newest = (from test in _context.TestExams
-                                  orderby test.TakeOn descending
-                                  select test).FirstOrDefault();
+                    //var newest = (from test in _context.TestExams
+                    //              orderby test.TakeOn descending
+                    //              select test).FirstOrDefault();
 
-                    var listQues = (from ques in _context.Questions
-                                    join questest in _context.TestQuestions
-                                    on ques.Id equals questest.QuestionId
-                                    join test in _context.TestExams
-                                    on questest.TestExamId equals test.Id
-                                    where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
-                                    && test.CourseId == id && test.TakeOn == newest.TakeOn
-                                    select ques).ToList();
+                    //var listQues = (from ques in _context.Questions
+                    //                join questest in _context.TestQuestions
+                    //                on ques.Id equals questest.QuestionId
+                    //                join test in _context.TestExams
+                    //                on questest.TestExamId equals test.Id
+                    //                where new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier)) == test.UserId
+                    //                && test.CourseId == id && test.TakeOn == newest.TakeOn
+                    //                select ques).ToList();
 
 
-                    var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(listQues);
+                    var Questions = _mapper.Map<IList<Question>, IList<QuestionVModel>>(newList);
                     TempData["NumberQuestions"] = Questions.Count;
                     return View(Questions);
                 }
 
                 var newQuestion = _mapper.Map<IList<Question>, IList<QuestionVModel>>(newList);
-                TempData["NumberQuestions"] = newQuestion.Count;
+                TempData["NumberQuestions"] = questions.Count;
                 return View(newQuestion);
             }
         }
@@ -222,8 +222,7 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
 
         public IActionResult Check(IFormCollection form)
         {
-            if (form.Count() != 1)
-            {
+                var number = 0;
                 var list = form.ToList();
                 int mark = 0;
                 list.RemoveAt(form.Count - 1);
@@ -259,11 +258,14 @@ namespace QuizzApp.Web.Areas.UserArea.Controllers
                 _context.SaveChanges();
 
                 var questions = TempData["NumberQuestions"].ToString();
-                var number = Convert.ToInt32(questions);
-                var grade = Math.Round((float)(mark * 10) / number, 2);
+                number = Convert.ToInt32(questions);
+                double grade = 0;
+                if (number != 0)
+                {
+                    grade = Math.Round((float)(mark * 10) / number, 2);
+                }
+                
                 return View("Submit", grade);
-            }
-            return RedirectToAction("Index", "Courses");
         }
 
         public bool CheckMultiple(List<string> listQuestion)

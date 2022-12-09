@@ -72,9 +72,10 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(Guid id)
+        [HttpGet]
+        public IActionResult Delete(Guid categoryId)
         {
-            var category = _unitOfWork.CategoryRepository.GetById(id);
+            var category = _unitOfWork.CategoryRepository.GetById(categoryId);
             if (category == null)
             {
                 return NotFound();

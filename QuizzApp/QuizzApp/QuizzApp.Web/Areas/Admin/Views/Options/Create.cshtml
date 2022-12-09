@@ -6,7 +6,14 @@
     ViewData["Title"] = "Create Question";
     Layout = "_Layout";
 }
-
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    else if(TempData["error"] != null){
+        ViewBag.Message = TempData["error"];
+    }
+    @Html.Partial("_message")
 
 <div class="container-fluid">
     <div class="col-12 offset-md-2 col-md-8 row">
@@ -55,7 +62,8 @@
                             <p style="color: red" id="show_message1"></p>
                           
                              @*asp-for="Status[i]"*@
-                            <input  type="checkbox" id="Status[0]" name="Status[0]" asp-for="Status[0]"
+
+                            <input  type="checkbox" id="Status1" name="Status1" value="True" 
                             class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
                             <label for="Status[0]" class="control-label mt-1 ml-2" style="margin-left:5px">
                                 Correct Answers</label>
@@ -68,7 +76,7 @@
                             <p style="color: red" id="show2"></p>
                           
                              @*asp-for="Status[i]"*@
-                            <input  type="checkbox" id="Status[1]" name="Status[1]" asp-for="Status[1]"
+                            <input  type="checkbox" id="Status2" name="Status2" value="True"
                             class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
                             <label for="Status[1]" class="control-label mt-1 ml-2" style="margin-left:5px">
                                 Correct Answers</label>
@@ -80,7 +88,7 @@
                             <p style="color: red" id="show3"></p>
                           
                              @*asp-for="Status[i]"*@
-                            <input  type="checkbox" id="Status[2]" name="Status[2]" asp-for="Status[2]"
+                            <input  type="checkbox" id="Status3" name="Status3" value="True"
                             class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
                             <label for="Status[2]" class="control-label mt-1 ml-2" style="margin-left:5px">
                                 Correct Answers</label>
@@ -92,7 +100,7 @@
                             <p style="color: red" id="show4"></p>
                           
                              @*asp-for="Status[i]"*@
-                            <input  type="checkbox" id="Status[3]" name="Status[3]" asp-for="Status[3]"
+                            <input  type="checkbox" id="Status4" name="Status4" value="True"
                             class="mt-0 ml-2" style="width:38px;height:38px; float:left; margin-left:15px "/>
                             <label for="Status[3]" class="control-label mt-1 ml-2" style="margin-left:5px">
                                 Correct Answers</label>

@@ -107,9 +107,9 @@ namespace QuizzApp.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(Request));
         }
 
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(Guid courseId)
         {
-            var course = _unitOfWork.CourseRepository.GetById(id);
+            var course = _unitOfWork.CourseRepository.GetById(courseId);
             if (course == null)
             {
                 return NotFound();

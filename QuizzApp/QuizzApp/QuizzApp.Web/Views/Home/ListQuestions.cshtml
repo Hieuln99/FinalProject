@@ -5,9 +5,18 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var id = TempData["id"];
 }
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    else if(TempData["error"] != null){
+        ViewBag.Message = TempData["error"];
+    }
+    @Html.Partial("_message")
 
-    <h1 style="padding-left: 5%">ListQuestions</h1>
+    <h1 style="text-align:center">List Questions</h1>
 <br />
+
 
 <div style="margin-left:3%">
       <a asp-action="CreateNew" asp-controller="Options" asp-area="Admin" asp-route-id="@id" class="btn btn-outline-primary" type="button">Create</a>
@@ -45,7 +54,7 @@
             </td>
             <td>
                 <a asp-controller="Questions" asp-area="UserArea" asp-action="EditQuestions" asp-route-id="@item.Id">Edit</a> |
-                <a onclick="deleteConfirm()">Delete</a>
+                <a id="@item.Id" onclick="deleteConfirm1(this)">Delete</a>
             </td>
         </tr>
 }
