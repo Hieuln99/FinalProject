@@ -7,9 +7,7 @@ on:
     branches: [ "main" ]
     
 jobs:
-
   build:
-
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -20,7 +18,7 @@ jobs:
       ACTIONS_STEP_DEBUG: true
       Solution_Name: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.sln
       Wap_Project_Directory: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp
-      Wap_Project_Path: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.csproj  # Đảm bảo chính xác
+      Wap_Project_Path: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.csproj
 
     steps:
     - name: Checkout
@@ -39,7 +37,7 @@ jobs:
     - name: Print Current Directory and List Files
       run: |
         pwd  # In đường dẫn hiện tại
-        dir  # Liệt kê các tệp trong thư mục
+        dir  # Liệt kê tất cả các tệp trong thư mục
 
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
