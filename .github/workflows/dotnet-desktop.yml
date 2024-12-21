@@ -24,6 +24,7 @@ jobs:
         path: .  # Tải toàn bộ mã nguồn từ repo1
 
   build_repo2:
+    needs: [build_repo1]
     runs-on: self-hosted
     steps:
     - name: Checkout TestHTML
@@ -40,7 +41,7 @@ jobs:
         path: .  # Tải toàn bộ mã nguồn từ repo2
 
   build:
-    needs: [build_repo1, build_repo2]  # Đảm bảo job này chỉ chạy sau khi cả hai job trên hoàn tất
+    needs: [build_repo2]  # Đảm bảo job này chỉ chạy sau khi cả hai job trên hoàn tất
     runs-on: self-hosted
 
     steps:
