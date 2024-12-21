@@ -57,7 +57,7 @@ jobs:
 
     env:
       ACTIONS_STEP_DEBUG: true
-      Solution_Name: QuizzApp.sln 
+      Solution_Name: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.sln 
 
     steps:
     - name: Checkout
@@ -76,8 +76,9 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     # Execute all unit tests in the solution
-    - name: List files
-      run: ls -R
+    - name: Print Current Directory
+      run: |
+        pwd  # In đường dẫn hiện tại
   
     #- name: Execute unit tests
      # run: dotnet test
