@@ -76,6 +76,9 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     # Execute all unit tests in the solution
+    - name: List files
+      run: ls -R
+  
     - name: Execute unit tests
       run: dotnet test
 
