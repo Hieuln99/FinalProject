@@ -64,8 +64,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
+
+    - name: Extract archive
+      run: tar -xf file.zip -C short-path
+
 
     # Install the .NET Core workload
     - name: Install .NET Core
