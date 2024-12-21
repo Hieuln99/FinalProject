@@ -61,9 +61,7 @@ jobs:
 
     env:
       ACTIONS_STEP_DEBUG: true
-      Solution_Name: QuizzApp.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: QuizzApp/QuizzApp/QuizzApp.Web/QuizzApp.Web.csproj                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
- 
+      Solution_Name: QuizzApp.sln 
 
     steps:
     - name: Checkout
