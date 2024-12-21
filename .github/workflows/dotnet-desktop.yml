@@ -44,10 +44,6 @@ on:
   pull_request:
     branches: [ "main" ]
     
-defaults:
-  run:
-    working-directory: ./short-path
-    
 jobs:
 
   build:
