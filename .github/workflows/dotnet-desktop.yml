@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+name: Multi-Repo Pipeline Example
 
 on:
   push:
@@ -17,6 +17,12 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}  # Dùng GitHub token để có quyền truy cập
         ref: main  # Chỉ định nhánh cần checkout từ repo1
 
+    - name: Upload Repo1 Source as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: repo1-source
+        path: .  # Tải toàn bộ mã nguồn từ repo1
+
   build_repo2:
     runs-on: self-hosted
     steps:
@@ -27,21 +33,38 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}  # Dùng GitHub token để có quyền truy cập
         ref: main  # Chỉ định nhánh cần checkout từ repo2
 
+    - name: Upload Repo2 Source as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: repo2-source
+        path: .  # Tải toàn bộ mã nguồn từ repo2
+
   build:
     needs: [build_repo1, build_repo2]  # Đảm bảo job này chỉ chạy sau khi cả hai job trên hoàn tất
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
     runs-on: self-hosted
 
-    env:
-      ACTIONS_STEP_DEBUG: true
-      Solution_Name: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.sln
-      Wap_Project_Directory: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp
-      Wap_Project_Path: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.Web\QuizzApp.Web.csproj
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4 
+    - name: Download Repo1 Source
+      uses: actions/download-artifact@v3
+      with:
+        name: repo1-source  # Tải artifact từ job build_repo1
+        path: ./repo1  # Lưu vào thư mục repo1
+
+    - name: Download Repo2 Source
+      uses: actions/download-artifact@v3
+      with:
+        name: repo2-source  # Tải artifact từ job build_repo2
+        path: ./repo2  # Lưu vào thư mục repo2
+
+    - name: Print Repositories' Content
+      run: |
+        echo "Content of Repo1:"
+        ls ./repo1
+        echo "Content of Repo2:"
+        ls ./repo2
+
+    - name: Checkout Main Project
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -52,11 +75,6 @@ jobs:
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v2
-
-    - name: Print Current Directory and List Files
-      run: |
-        pwd  # In đường dẫn hiện tại
-        dir  # Liệt kê tất cả các tệp trong thư mục
 
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
