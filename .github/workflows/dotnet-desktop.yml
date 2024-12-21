@@ -7,6 +7,27 @@ on:
     branches: [ "main" ]
     
 jobs:
+  build_repo1:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout Microservices
+      uses: actions/checkout@v4
+      with:
+        repository: Hieuln99/Microservices  # Thay 'user/repo1' bằng tên repo đầu tiên
+        token: ${{ secrets.GITHUB_TOKEN }}  # Dùng GitHub token để có quyền truy cập
+        ref: main  # Chỉ định nhánh cần checkout từ repo1
+
+  build_repo2:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout TestHTML
+      uses: actions/checkout@v4
+      with:
+        repository: Hieuln99/TestHTML  # Thay 'user/repo2' bằng tên repo thứ hai
+        token: ${{ secrets.GITHUB_TOKEN }}  # Dùng GitHub token để có quyền truy cập
+        ref: main  # Chỉ định nhánh cần checkout từ repo2
+    
+      
   build:
     strategy:
       matrix:
