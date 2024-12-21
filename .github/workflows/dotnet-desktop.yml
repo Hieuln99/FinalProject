@@ -19,8 +19,8 @@ jobs:
     env:
       ACTIONS_STEP_DEBUG: true
       Solution_Name: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.sln 
-      Wap_Project_Directory: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp  # Đảm bảo đường dẫn đúng
-      Wap_Project_Path: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\YourProjectFile.csproj  # Chỉ định chính xác tệp dự án
+      Wap_Project_Directory: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp  
+      Wap_Project_Path: C:\actions-runner\_work\FinalProject\FinalProject\QuizzApp\QuizzApp\QuizzApp.csproj  # Đảm bảo chính xác tệp .csproj
 
     steps:
     - name: Checkout
@@ -36,9 +36,10 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v2
 
-    - name: Print Current Directory
+    - name: Print Current Directory and List Files
       run: |
-        pwd  # In đường dẫn hiện tại để kiểm tra
+        pwd  # In đường dẫn hiện tại
+        dir  # Liệt kê các tệp có trong thư mục
 
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
