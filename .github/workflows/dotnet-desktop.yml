@@ -67,8 +67,7 @@ jobs:
  
     - name: Set PowerShell Execution Policy
       run: |
-        Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
-        shell: pwsh
+        pwsh -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force"
 
     # Install the .NET Core workload
     - name: Install .NET Core
