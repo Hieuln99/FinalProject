@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
+
 jobs:
   build_repo1:
     runs-on: self-hosted
@@ -26,13 +26,12 @@ jobs:
         repository: Hieuln99/TestHTML  # Thay 'user/repo2' bằng tên repo thứ hai
         token: ${{ secrets.GITHUB_TOKEN }}  # Dùng GitHub token để có quyền truy cập
         ref: main  # Chỉ định nhánh cần checkout từ repo2
-    
-      
+
   build:
+    needs: [build_repo1, build_repo2]  # Đảm bảo job này chỉ chạy sau khi cả hai job trên hoàn tất
     strategy:
       matrix:
         configuration: [Debug, Release]
-
     runs-on: self-hosted
 
     env:
